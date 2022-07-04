@@ -1,0 +1,9 @@
+.header {
+  position: absolute;
+  width: 1920px;
+  left: calc(50% - 1920px / 2);
+  top: 0%;
+  bottom: 88.15%;
+
+  background: #d9d9d9;
+}
