@@ -28,4 +28,6 @@ public class UserEntity {
     @Column(name = "USER_PHONE", length = 13)
     private String user_phone;
 
+
+
 }
