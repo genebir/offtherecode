@@ -15,3 +15,6 @@
 6. git commit -m "commit message"
 
 7. git push -u origin 각자의 브랜치
+
+
+git status 현재상태 확인
