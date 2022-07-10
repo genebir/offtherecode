@@ -18,8 +18,5 @@ import javax.persistence.Table;
 @Table(name="userinfo")
 public class UserInfoEntity {
 
-    @OneToOne
-    @JoinColumn(name="USER_INFO_FNO")
-    private UserEntity userEntity;
 
 }

@@ -5,8 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Data
 @AllArgsConstructor
@@ -15,4 +14,12 @@ import javax.persistence.Table;
 @Entity
 @Table(name="like")
 public class LikeEntity {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @OneToOne
+    private FeedEntity feedEntity;
+    @Column(name = "LIKE_ID_LIST", length = 2000)
+    private String likeIdList;
+
 }
