@@ -1,9 +1,0 @@
-.container {
-  position: absolute;
-  width: 1414px;
-  left: calc(50% - 1414px / 2);
-  top: 17.69%;
-  bottom: 17.69%;
-
-  background: #d9d9d9;
-}
