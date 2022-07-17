@@ -25,9 +25,6 @@ public class FeedEntity {
     private Long feedPno;
     @Column(name = "FEED_CONTENT", length = 1000, nullable = false)
     private String feedContent;
-    @ManyToOne(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
-    @JoinColumn(name = "FEED_USER_FNO")
-    private UserEntity feedUserFno;
     @CreatedDate
     @Column(name="FEED_DATE", nullable = false)
     private LocalDate feedDate;
@@ -35,9 +32,7 @@ public class FeedEntity {
     private String feedFile;
     @Column(name = "FEED_ALT", length = 200)
     private String feedAlt;
-//    @OneToOne(cascade = )
-//    @JoinColumn(name = "FEED_LIKE_FNO")
-//    private LikeEntity feedLikeFno;
+
 
 
 }

@@ -27,9 +27,6 @@ public class ReplyEntity {
     @ManyToOne(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
     @JoinColumn(name = "REPLY_FEED_FNO", nullable = false)
     private FeedEntity replyFeedFno;
-    @ManyToOne(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER)
-    @JoinColumn(name = "REPLY_USER_FNO", nullable = false)
-    private UserEntity replyUserFno;
     @Column(name = "REPLY_DATE", nullable = false)
     @CreatedDate
     private LocalDate replyDate;
