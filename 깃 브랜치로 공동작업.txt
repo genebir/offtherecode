@@ -1,0 +1,20 @@
+1. git clone --depth=1 https://github.com/genebir/offtherecode.git
+
+1-1.git config remote.origin.fetch +refs/heads/*:refs/remotes/origin/*
+
+2. git remote update
+
+3. git branch -r
+
+4. git checkout 각자의 브란치
+
+5. git add -A
+
+5-5. git config --global core.autocrlf true
+
+6. git commit -m "commit message"
+
+7. git push -u origin 각자의 브랜치
+
+
+git status 현재상태 확인
