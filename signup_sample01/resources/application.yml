@@ -1,0 +1,42 @@
+
+
+server :
+  port: 8084
+  servlet :
+    context-path: /
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
+spring :
+  datasource :
+    driver-class-name : oracle.jdbc.driver.OracleDriver
+    url : jdbc:oracle:thin:@localhost:1521:XE
+    username : comstudy21
+    password : comstudy21
+    
+  jpa :
+    database-platform: org.hibernate.dialect.Oracle10gDialect
+    hibernate :
+      ddl-auto: create
+    properties :
+      hibernate :
+        format_sql : true
+   
+#   security :
+#     oauth2 :
+#       client :
+#         registration :
+#           google :
+#             client-id :
+#             client-secret :
+#             scope :
+#               - email
+#               - profile
+
+#loggin :
+#  level :
+#    org:hibernate:SQL: DEBUG
+    
+ 

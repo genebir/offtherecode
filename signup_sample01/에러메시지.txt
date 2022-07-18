@@ -1,0 +1,9 @@
+Description:
+
+Parameter 0 of constructor in com.example.demo.service.AccountService required a bean named 'entityManagerFactory' that could not be found.
+
+
+Action:
+
+Consider defining a bean named 'entityManagerFactory' in your configuration.
+
