@@ -3,7 +3,11 @@ import { useNavigate } from "react-router-dom";
 const PostProject = (props) => {
   const history = useNavigate();
   return (
-    <div className="post-popup pst-pj active">
+    <div
+      className={
+        props.isProject ? "post-popup pst-pj active" : "post-popup pst-pj"
+      }
+    >
       <div className="post-project">
         <h3>Post a project</h3>
         <div className="post-project-fields">
@@ -63,7 +67,7 @@ const PostProject = (props) => {
           </form>
         </div>
         {/*post-project-fields end*/}
-        <a title="" onClick={props.isprojhandler}>
+        <a href="#" title="" onClick={props.isprojhandler}>
           <i className="la la-times-circle-o" />
         </a>
         {/*post-project end*/}

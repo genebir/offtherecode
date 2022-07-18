@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import AuthContext from "../../../store/auth-context";
 import ErrorModal from "../../Layout/ErrorModal";
 
-const LoginForm = () => {
+const LoginForm = (props) => {
   const authCtx = useContext(AuthContext);
   const [error, setError] = useState(false);
   const history = useNavigate();
@@ -44,7 +44,14 @@ const LoginForm = () => {
   };
   return (
     <div>
-      <div className="sign_in_sec current" id="tab-1">
+      <div
+        className={
+          props.state === 1
+            ? "sign_in_sec animated fadeIn current"
+            : "sign_in_sec animated fadeIn"
+        }
+        id="tab-1"
+      >
         <h3>Sign in</h3>
         <form onSubmit={onSubmitHandler}>
           <div className="row">

@@ -2,13 +2,13 @@ import { useContext } from "react";
 import { Link } from "react-router-dom";
 import AuthContext from "../../store/auth-context";
 
-const HeaderUser = () => {
+const HeaderUser = (props) => {
   const authCtx = useContext(AuthContext);
   return (
     <div
       className="user-account-settingss"
       id="users"
-      style={{ display: "block" }}
+      style={props.isuser ? { display: "block" } : { display: "none" }}
     >
       <h3>Online Status</h3>
       <ul className="on-off-status">

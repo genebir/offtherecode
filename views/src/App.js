@@ -1,4 +1,3 @@
-import Home from "./page/Home";
 import { Routes, Route } from "react-router-dom";
 import Companies from "./page/Companies";
 import Companyprofile from "./page/Company-profile";
@@ -15,6 +14,8 @@ import Forum from "./page/Forum";
 import Helpcenter from "./page/Helpcenter";
 import { useContext } from "react";
 import AuthContext from "./store/auth-context";
+import HomeContents from "./page/HomeContents";
+import Home from "./page/Home";
 
 const App = () => {
   const ctx = useContext(AuthContext);
@@ -22,7 +23,7 @@ const App = () => {
     <div>
       <Routes>
         <Route path="/" element={ctx.isLoggedIn ? <Home /> : <Signin />} />
-        <Route path="/about" element={<About />} />
+        {/* <Route path="/about" element={<About />} />
         <Route path="/companies" element={<Companies />} />
         <Route path="/companies/profile" element={<Companyprofile />} />
         <Route path="/forum" element={<Forum />} />
@@ -34,7 +35,7 @@ const App = () => {
         <Route path="/profile/users" element={<Userprofile />} />
         <Route path="/profile/self" element={<Selfprofile />} />
         <Route path="/projects" element={<Projects />} />
-        <Route path="/setting" element={<Profilesetting />} />
+        <Route path="/setting" element={<Profilesetting />} /> */}
       </Routes>
     </div>
   );

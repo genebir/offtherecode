@@ -73,21 +73,35 @@ const Signin = () => {
                   <div className="col-lg-6">
                     <div className="login-sec">
                       <ul className="sign-control">
-                        <li data-tab="tab-1" className="current">
+                        <li
+                          data-tab="tab-1"
+                          className={
+                            state === 1
+                              ? "animated fadeIn current"
+                              : "animated fadeIn"
+                          }
+                        >
                           <a title="" onClick={signin}>
                             Sign in
                           </a>
                         </li>
-                        <li data-tab="tab-2">
+                        <li
+                          data-tab="tab-2"
+                          className={
+                            state === 1
+                              ? "animated fadeIn"
+                              : "animated fadeIn current"
+                          }
+                        >
                           <a title="" onClick={signup}>
                             Sign up
                           </a>
                         </li>
                       </ul>
-                      {state === 1 ? <LoginForm /> : null}{" "}
+                      <LoginForm state={state} />
                       {/*로그인 폼 컴포넌트 분리*/}
                       {/*sign_in_sec end*/}
-                      {state === 2 ? <SignupForm /> : null}{" "}
+                      <SignupForm state={state} />
                       {/*회원가입 폼 컴포넌트 분리*/}
                     </div>
                     {/*login-sec end*/}

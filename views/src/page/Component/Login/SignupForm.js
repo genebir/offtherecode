@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ErrorModal from "../../Layout/ErrorModal";
 
-const SignupForm = () => {
+const SignupForm = (props) => {
   const [checkbox, setCheckbox] = useState(true);
   const [error, setError] = useState(false);
   const history = useNavigate();
@@ -82,7 +82,14 @@ const SignupForm = () => {
   // 이메일 비밀번호 닉네임 핸드폰 번호
   return (
     <div>
-      <div className="sign_in_sec current" id="tab-2">
+      <div
+        className={
+          props.state === 2
+            ? "sign_in_sec animated fadeIn"
+            : "sign_in_sec animated fadeIn current"
+        }
+        id="tab-2"
+      >
         {/*signup-tab end*/}
         <div className="dff-tab current" id="tab-3">
           <form onSubmit={onSubmitHandler}>

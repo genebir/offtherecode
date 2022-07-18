@@ -1,6 +1,10 @@
 const PostJob = (props) => {
   return (
-    <div className="post-popup job_post active">
+    <div
+      className={
+        props.isJob ? "post-popup job_post active" : "post-popup job_post"
+      }
+    >
       <div className="post-project">
         <h3>Post a job</h3>
         <div className="post-project-fields">
@@ -61,7 +65,7 @@ const PostJob = (props) => {
           </form>
         </div>
         {/*post-project-fields end*/}
-        <a title="" onClick={props.isjobhandler}>
+        <a href="#" title="" onClick={props.isjobhandler}>
           <i className="la la-times-circle-o" />
         </a>
         {/*post-project end*/}
