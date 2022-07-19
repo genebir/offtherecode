@@ -27,7 +27,6 @@ const About = () => (
     <link rel="stylesheet" type="text/css" href="lib/slick/slick-theme.css" />
     <link rel="stylesheet" type="text/css" href="css/style.css" />
     <link rel="stylesheet" type="text/css" href="css/responsive.css" />
-    <Header />
     {/*header end*/}
     <section className="banner">
       <div className="bannerimage">
@@ -118,11 +117,6 @@ const About = () => (
         </div>
       </div>
     </section>
-    <footer>
-      <div className="footy-sec mn no-margin">
-        <Footer />
-      </div>
-    </footer>
     {/*footer end*/}
   </>
 );

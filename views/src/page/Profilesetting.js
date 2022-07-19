@@ -1,5 +1,5 @@
-import { useReducer, useState } from "react";
-import { Link } from "react-router-dom";
+import { useReducer } from "react";
+
 import AccountSetting from "./Component/AccountSetting/AccoutSetting";
 import Blocking from "./Component/AccountSetting/Blocking";
 import ChangePassword from "./Component/AccountSetting/ChangePassword";
@@ -10,7 +10,6 @@ import Requests from "./Component/AccountSetting/Requests";
 import SecurityAndLogin from "./Component/AccountSetting/SecurityAndLogin";
 import Status from "./Component/AccountSetting/Status";
 import Footer from "./Layout/Footer";
-import Header from "./Layout/Header";
 
 const profilebanner = (states, action) => {
   switch (action.type) {
@@ -136,109 +135,145 @@ const Profilesetting = () => {
                   <div className="acc-leftbar">
                     <div className="nav nav-tabs" id="nav-tab" role="tablist">
                       <a
-                        className="nav-item nav-link active"
+                        className={
+                          state === 1
+                            ? "nav-item nav-link active"
+                            : "nav-item nav-link"
+                        }
                         id="nav-acc-tab"
                         data-toggle="tab"
                         onClick={accountsettings}
                         role="tab"
                         aria-controls="nav-acc"
-                        aria-selected="true"
+                        aria-selected={state === 1 ? "true" : "false"}
                       >
                         <i className="la la-cogs" />
                         Account Setting
                       </a>
                       <a
-                        className="nav-item nav-link"
+                        className={
+                          state === 2
+                            ? "nav-item nav-link active"
+                            : "nav-item nav-link"
+                        }
                         id="nav-status-tab"
                         data-toggle="tab"
                         onClick={status}
                         role="tab"
                         aria-controls="nav-status"
-                        aria-selected="true"
+                        aria-selected={state === 2 ? "true" : "false"}
                       >
                         <i className="fa fa-line-chart" />
                         Status
                       </a>
                       <a
-                        className="nav-item nav-link"
+                        className={
+                          state === 3
+                            ? "nav-item nav-link active"
+                            : "nav-item nav-link"
+                        }
                         id="nav-password-tab"
                         data-toggle="tab"
                         onClick={changepassword}
                         role="tab"
                         aria-controls="nav-password"
-                        aria-selected="true"
+                        aria-selected={state === 3 ? "true" : "false"}
                       >
                         <i className="fa fa-lock" />
                         Change Password
                       </a>
                       <a
-                        className="nav-item nav-link"
+                        className={
+                          state === 4
+                            ? "nav-item nav-link active"
+                            : "nav-item nav-link"
+                        }
                         id="nav-notification-tab"
                         data-toggle="tab"
                         onClick={notifications}
                         role="tab"
                         aria-controls="nav-notification"
-                        aria-selected="false"
+                        aria-selected={state === 4 ? "true" : "false"}
                       >
                         <i className="fa fa-flash" />
                         Notifications
                       </a>
                       <a
-                        className="nav-item nav-link"
+                        className={
+                          state === 5
+                            ? "nav-item nav-link active"
+                            : "nav-item nav-link"
+                        }
                         id="nav-privcy-tab"
                         data-toggle="tab"
                         onClick={requests}
                         role="tab"
                         aria-controls="privacy"
-                        aria-selected="false"
+                        aria-selected={state === 5 ? "true" : "false"}
                       >
                         <i className="fa fa-group" />
                         Requests
                       </a>
                       <a
-                        className="nav-item nav-link"
+                        className={
+                          state === 6
+                            ? "nav-item nav-link active"
+                            : "nav-item nav-link"
+                        }
                         id="security"
                         data-toggle="tab"
                         onClick={securityandlogin}
                         role="tab"
                         aria-controls="security-login"
-                        aria-selected="false"
+                        aria-selected={state === 6 ? "true" : "false"}
                       >
                         <i className="fa fa-user-secret" />
                         Security and Login
                       </a>
                       <a
-                        className="nav-item nav-link"
+                        className={
+                          state === 7
+                            ? "nav-item nav-link active"
+                            : "nav-item nav-link"
+                        }
                         id="nav-privacy-tab"
                         data-toggle="tab"
                         onClick={privacy}
                         role="tab"
                         aria-controls="privacy"
-                        aria-selected="false"
+                        aria-selected={state === 7 ? "true" : "false"}
                       >
                         <i className="fa fa-paw" />
                         Privacy
                       </a>
                       <a
-                        className="nav-item nav-link"
+                        className={
+                          state === 8
+                            ? "nav-item nav-link active"
+                            : "nav-item nav-link"
+                        }
                         id="nav-blockking-tab"
                         data-toggle="tab"
                         onClick={blocking}
                         role="tab"
                         aria-controls="blockking"
-                        aria-selected="false"
+                        aria-selected={state === 8 ? "true" : "false"}
                       >
                         <i className="fa fa-cc-diners-club" />
                         Blocking
                       </a>
                       <a
-                        className="nav-item nav-link"
+                        className={
+                          state === 9
+                            ? "nav-item nav-link active"
+                            : "nav-item nav-link"
+                        }
                         id="nav-deactivate-tab"
                         data-toggle="tab"
                         onClick={deactivateaccount}
                         role="tab"
                         aria-controls="nav-deactivate"
-                        aria-selected="false"
+                        aria-selected={state === 9 ? "true" : "false"}
                       >
                         <i className="fa fa-random" />
                         Deactivate Account
@@ -249,7 +284,7 @@ const Profilesetting = () => {
                 </div>
                 <div className="col-lg-9">
                   <div className="tab-content" id="nav-tabContent">
-                    {state === 1 ? <AccountSetting /> : null}
+                    <AccountSetting state={state} />
                     {state === 2 ? <Status /> : null}
                     {state === 3 ? <ChangePassword /> : null}
                     {state === 4 ? <Notifications /> : null}

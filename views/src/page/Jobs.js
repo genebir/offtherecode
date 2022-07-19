@@ -902,11 +902,6 @@ const Jobs = () => (
       </main>
     </div>
     {/*post-project-popup end*/}
-    <footer>
-      <div className="footy-sec mn no-margin">
-        <Footer />
-      </div>
-    </footer>
   </>
 );
 

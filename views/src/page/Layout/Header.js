@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useState } from "react";
+import { Fragment, useEffect, useReducer, useState } from "react";
 import { Link } from "react-router-dom";
 import Home from "../HomeContents";
 import Companies from "../Companies";
@@ -58,7 +58,7 @@ const Header = (props) => {
         {state === 2 ? <Companies /> : null} */}
       <div className="container">
         <div className="header-data">
-          <div className="logo">
+          <div className="logo" onClick={props.openHomeHandler}>
             <a onClick={props.home}>
               <img src={`${process.env.PUBLIC_URL}/images/logo.png`} alt="" />
             </a>
@@ -75,7 +75,7 @@ const Header = (props) => {
           {/*search-bar end*/}
           <nav className={isMenuBtn ? "active" : null}>
             <ul>
-              <li>
+              <li onClick={props.openHomeHandler}>
                 <a href="#!" onClick={props.home}>
                   <span>
                     <img
@@ -86,108 +86,110 @@ const Header = (props) => {
                   Home
                 </a>
               </li>
-              <li>
-                <a href="#!" title="" onClick={props.companies}>
-                  <span>
-                    <img
-                      src={`${process.env.PUBLIC_URL}/images/icon2.png`}
-                      alt=""
+              <Fragment>
+                <li onClick={props.closeHomeHandler}>
+                  <a href="#!" title="" onClick={props.companies}>
+                    <span>
+                      <img
+                        src={`${process.env.PUBLIC_URL}/images/icon2.png`}
+                        alt=""
+                      />
+                    </span>
+                    Companies
+                  </a>
+                  <ul>
+                    <li>
+                      <a href="#!" onClick={props.companies}>
+                        Companies
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#!">Company Profile</a>
+                    </li>
+                  </ul>
+                </li>
+                <li onClick={props.closeHomeHandler}>
+                  <a href="#!" onClick={props.projects}>
+                    <span>
+                      <img
+                        src={`${process.env.PUBLIC_URL}/images/icon3.png`}
+                        alt=""
+                      />
+                    </span>
+                    Wiki
+                  </a>
+                </li>
+                <li onClick={props.closeHomeHandler}>
+                  <a href="#!" onClick={props.profiles}>
+                    <span>
+                      <img
+                        src={`${process.env.PUBLIC_URL}/images/icon4.png`}
+                        alt=""
+                      />
+                    </span>
+                    Profiles
+                  </a>
+                  <ul>
+                    <li>
+                      <a href="#!">User Profile</a>
+                    </li>
+                    <li>
+                      <a href="#!">my-profile-feed</a>
+                    </li>
+                  </ul>
+                </li>
+                <li onClick={props.closeHomeHandler}>
+                  <a href="#!" onClick={props.jobs}>
+                    <span>
+                      <img
+                        src={`${process.env.PUBLIC_URL}/images/icon5.png`}
+                        alt=""
+                      />
+                    </span>
+                    Jobs
+                  </a>
+                </li>
+                <li onClick={props.closeHomeHandler}>
+                  <a
+                    href="#!"
+                    title=""
+                    class="not-box-openm"
+                    onClick={messagebanner}
+                  >
+                    <span>
+                      <img
+                        src={`${process.env.PUBLIC_URL}/images/icon6.png`}
+                        alt=""
+                      />
+                    </span>
+                    Messages
+                  </a>
+                  {isMessage && (
+                    <HeaderMessage
+                      messages={props.messages}
+                      messagebanner={messagebanner}
                     />
-                  </span>
-                  Companies
-                </a>
-                <ul>
-                  <li>
-                    <a href="#!" onClick={props.companies}>
-                      Companies
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#!">Company Profile</a>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <a href="#!" onClick={props.projects}>
-                  <span>
-                    <img
-                      src={`${process.env.PUBLIC_URL}/images/icon3.png`}
-                      alt=""
-                    />
-                  </span>
-                  Wiki
-                </a>
-              </li>
-              <li>
-                <a href="#!" onClick={props.profiles}>
-                  <span>
-                    <img
-                      src={`${process.env.PUBLIC_URL}/images/icon4.png`}
-                      alt=""
-                    />
-                  </span>
-                  Profiles
-                </a>
-                <ul>
-                  <li>
-                    <a href="#!">User Profile</a>
-                  </li>
-                  <li>
-                    <a href="#!">my-profile-feed</a>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <a href="#!" onClick={props.jobs}>
-                  <span>
-                    <img
-                      src={`${process.env.PUBLIC_URL}/images/icon5.png`}
-                      alt=""
-                    />
-                  </span>
-                  Jobs
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#!"
-                  title=""
-                  class="not-box-openm"
-                  onClick={messagebanner}
-                >
-                  <span>
-                    <img
-                      src={`${process.env.PUBLIC_URL}/images/icon6.png`}
-                      alt=""
-                    />
-                  </span>
-                  Messages
-                </a>
-                {isMessage && (
-                  <HeaderMessage
-                    messages={props.messages}
-                    messagebanner={messagebanner}
-                  />
-                )}
-                {/*notification-box end*/}
-              </li>
-              <li>
-                <a
-                  href="#!"
-                  title=""
-                  className="not-box-open"
-                  onClick={NotificationHandler}
-                >
-                  <span>
-                    <img
-                      src={`${process.env.PUBLIC_URL}/images/icon7.png`}
-                      alt=""
-                    />
-                  </span>
-                  Notification
-                </a>
-                {isNotification && <HeaderNotification />}
-              </li>
+                  )}
+                  {/*notification-box end*/}
+                </li>
+                <li onClick={props.closeHomeHandler}>
+                  <a
+                    href="#!"
+                    title=""
+                    className="not-box-open"
+                    onClick={NotificationHandler}
+                  >
+                    <span>
+                      <img
+                        src={`${process.env.PUBLIC_URL}/images/icon7.png`}
+                        alt=""
+                      />
+                    </span>
+                    Notification
+                  </a>
+                  {isNotification && <HeaderNotification />}
+                </li>
+              </Fragment>
             </ul>
           </nav>
           {/*nav end*/}

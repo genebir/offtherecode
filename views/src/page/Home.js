@@ -7,6 +7,11 @@ import Profile from "./Profile";
 import Projects from "./Projects";
 import Message from "./Message";
 import Profilesetting from "./Profilesetting";
+import ErrorModal from "./Layout/ErrorModal";
+import Helpcenter from "./Helpcenter";
+import About from "./About";
+import Forum from "./Forum";
+import Footer from "./Layout/Footer";
 
 const headerbanner = (states, action) => {
   switch (action.type) {
@@ -25,15 +30,39 @@ const headerbanner = (states, action) => {
     case "SETTINGS":
       return (states = 7);
     default:
+      return (states = 0);
+  }
+};
+
+const Footerbanner = (states, action) => {
+  switch (action.type) {
+    case "HELPCENTER":
       return (states = 1);
+    case "ABOUT":
+      return (states = 2);
+    case "FORUM":
+      return (states = 3);
+    default:
+      return (states = null);
   }
 };
 
 const Home = () => {
   const [state, dispatch] = useReducer(headerbanner, 1);
+  const [footer, footDispatch] = useReducer(Footerbanner, 0);
 
   const [isJob, setIsJob] = useState(false);
   const [isProject, setIsProject] = useState(false);
+  const [isContent, setIsContent] = useState(true);
+  const [isFooterContent, setIsFooterContent] = useState(false);
+
+  const closeFooterContent = () => {
+    setIsFooterContent(false);
+  };
+
+  const openFooterContent = () => {
+    setIsFooterContent(true);
+  };
 
   const isprojhandler = () => {
     setIsProject((event) => !event);
@@ -41,6 +70,30 @@ const Home = () => {
 
   const isjobhandler = () => {
     setIsJob((event) => !event);
+  };
+
+  const helpcenter = () => {
+    footDispatch({
+      type: "HELPCENTER",
+    });
+  };
+
+  const about = () => {
+    footDispatch({
+      type: "ABOUT",
+    });
+  };
+
+  const forum = () => {
+    footDispatch({
+      type: "FORUM",
+    });
+  };
+
+  const reset = () => {
+    footDispatch({
+      type: "RESET",
+    });
   };
 
   const home = () => {
@@ -85,6 +138,12 @@ const Home = () => {
     });
   };
 
+  useEffect(() => {
+    if (footer !== 0) {
+      setIsContent(false);
+    }
+  }, [footer]);
+
   return (
     <Fragment>
       <meta charSet="UTF-8" />
@@ -120,30 +179,56 @@ const Home = () => {
           isProject === true || isJob === true ? "wrapper overlay" : "wrapper"
         }
       >
-        <Header
-          home={home}
-          companies={companies}
-          projects={wiki}
-          profiles={profiles}
-          jobs={jobs}
-          messages={messages}
-          settings={settings}
-        ></Header>
-        {/* <HomeContents /> */}
-        {state === 1 && (
-          <HomeContents
-            isProject={isProject}
-            isJob={isJob}
-            isprojhandler={isprojhandler}
-            isjobhandler={isjobhandler}
+        {footer !== 1 && footer !== 3 ? (
+          <Header
+            home={home}
+            companies={companies}
+            projects={wiki}
+            profiles={profiles}
+            jobs={jobs}
+            messages={messages}
+            settings={settings}
           />
+        ) : null}
+        {/* <HomeContents /> */}
+        {isContent && (
+          <Fragment>
+            {state === 1 && (
+              <HomeContents
+                isProject={isProject}
+                isJob={isJob}
+                isprojhandler={isprojhandler}
+                isjobhandler={isjobhandler}
+              />
+            )}
+            {state === 2 && <Companies />}
+            {state === 3 && <Projects />}
+            {state === 4 && <Profile />}
+            {state === 5 && <Jobs />}
+            {state === 6 && <Message />}
+            {state === 7 && <Profilesetting />}
+          </Fragment>
         )}
-        {state === 2 && <Companies />}
-        {state === 3 && <Projects />}
-        {state === 4 && <Profile />}
-        {state === 5 && <Jobs />}
-        {state === 6 && <Message />}
-        {state === 7 && <Profilesetting />}
+
+        <footer>
+          <div>
+            {footer === 1 && (
+              <Helpcenter
+                home={home}
+                companies={companies}
+                projects={wiki}
+                profiles={profiles}
+                jobs={jobs}
+                messages={messages}
+                settings={settings}
+              />
+            )}
+            {footer === 2 && <About />}
+            {footer === 3 && <Forum home={home} />}
+          </div>
+
+          <Footer helpcenter={helpcenter} forum={forum} about={about} />
+        </footer>
       </div>
     </Fragment>
   );
