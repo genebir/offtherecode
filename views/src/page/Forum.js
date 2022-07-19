@@ -5,7 +5,7 @@ import AskForum from "./Component/Forum/AskForum";
 import ForumBoard from "./Component/Forum/ForumBoard";
 import Footer from "./Layout/Footer";
 
-const Forum = () => {
+const Forum = (props) => {
   const authCtx = useContext(AuthContext);
   const searchref = useRef();
   const [isPost, setIsPost] = useState(false);
@@ -79,14 +79,14 @@ const Forum = () => {
       <link rel="stylesheet" type="text/css" href="lib/slick/slick-theme.css" />
       <link rel="stylesheet" type="text/css" href="css/style.css" />
       <link rel="stylesheet" type="text/css" href="css/responsive.css" />
-      <div className="wrapper">
+      <div className={isPost ? "wrapper overlay" : "wrapper"}>
         <header>
           <div className="container">
             <div className="header-data">
-              <div className="logo pd-btm">
-                <Link to="/" title="">
+              <div className="logo pd-btm" onClick={props.closeFooterContent}>
+                <a href="#!" title="" onClick={props.home}>
                   <img src="images/logo.png" alt="" />
-                </Link>
+                </a>
               </div>
               {/*logo end*/}
               <div className="forum-bar">
@@ -103,7 +103,12 @@ const Forum = () => {
                     </a>
                   </li>
                   <li>
-                    <a onClick={PostHandler} title="" className="ask-question">
+                    <a
+                      onClick={PostHandler}
+                      title=""
+                      className="ask-question"
+                      style={{ cursor: "pointer" }}
+                    >
                       Ask a question
                     </a>
                   </li>
@@ -336,13 +341,8 @@ const Forum = () => {
           </div>
         </section>
         {/*forum-page end*/}
-        <footer>
-          <div className="footy-sec mn no-margin">
-            <Footer />
-          </div>
-        </footer>
 
-        {isPost && <AskForum postHandler={PostHandler} />}
+        <AskForum postHandler={PostHandler} isPost={isPost} />
         {/*overview-box end*/}
       </div>
       {/*theme-layout end*/}

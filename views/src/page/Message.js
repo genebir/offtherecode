@@ -76,153 +76,128 @@ const Message = () => {
       <link rel="stylesheet" type="text/css" href="lib/slick/slick-theme.css" />
       <link rel="stylesheet" type="text/css" href="css/style.css" />
       <link rel="stylesheet" type="text/css" href="css/responsive.css" />
-      <body>
-        <div className="wrapper">
-          <Header />
-          {/*header end*/}
-          <section className="messages-page">
-            <div className="container">
-              <div className="messages-sec">
-                <div className="row">
-                  <div className="col-lg-4 col-md-12 no-pdd">
-                    <div className="msgs-list">
-                      <div className="msg-title">
-                        <h3>Messages</h3>
-                        <ul>
-                          <li>
-                            <a href="#" title="">
-                              <i className="fa fa-cog" />
-                            </a>
-                          </li>
-                          <li>
-                            <a href="#" title="">
-                              <i className="fa fa-ellipsis-v" />
-                            </a>
-                          </li>
-                        </ul>
-                      </div>
-                      {/*msg-title end*/}
-                      <div className="messages-list">
-                        <LeftBanner />
-                      </div>
-                      {/*messages-list end*/}
-                    </div>
-                    {/*msgs-list end*/}
-                  </div>
-                  <div className="col-lg-8 col-md-12 pd-right-none pd-left-none">
-                    <div
-                      className="main-conversation-box"
-                      ref={scrollRef}
-                      style={{ overflow: "scroll" }}
-                    >
-                      <div className="message-bar-head">
-                        <div className="usr-msg-details">
-                          <div className="usr-ms-img">
-                            <img src="images/resources/m-img1.png" alt="" />
-                          </div>
-                          <div className="usr-mg-info">
-                            <h3>John Doe</h3>
-                            <p>Online</p>
-                          </div>
-                          {/*usr-mg-info end*/}
-                        </div>
+
+      {/*header end*/}
+      <section className="messages-page">
+        <div className="container">
+          <div className="messages-sec">
+            <div className="row">
+              <div className="col-lg-4 col-md-12 no-pdd">
+                <div className="msgs-list">
+                  <div className="msg-title">
+                    <h3>Messages</h3>
+                    <ul>
+                      <li>
+                        <a href="#" title="">
+                          <i className="fa fa-cog" />
+                        </a>
+                      </li>
+                      <li>
                         <a href="#" title="">
                           <i className="fa fa-ellipsis-v" />
                         </a>
-                      </div>
-                      {/*message-bar-head end*/}
-                      <div
-                        className="messages-line mCustomScrollbar _mCS_1"
-                        style={{ height: "auto" }}
-                      >
-                        <div
-                          id="mCSB_1"
-                          className="mCustomScrollBox mCS-light mCSB_vertical mCSB_inside"
-                          style={{ maxHeight: "none" }}
-                          tabIndex="0"
-                        >
-                          <div
-                            id="mCSB_1_container"
-                            className="mCSB_container"
-                            style={{
-                              position: "relative",
-                              top: "0px",
-                              left: "0px",
-                            }}
-                            dir="ltr"
-                          >
-                            <MessageForm
-                              myMessageList={myMessageList}
-                              userMessageList={userMessageList}
-                            />
-                          </div>
-                        </div>
-                        {/*main-message-box end*/}
-                      </div>
-                      {/*messages-line end*/}
-                      <div className="message-send-area">
-                        <form onSubmit={SendMessage}>
-                          <div className="mf-field">
-                            <input
-                              type="text"
-                              name="message"
-                              placeholder="Type a message here"
-                              ref={inputmessage}
-                            />
-                            <button type="submit">Send</button>
-                          </div>
-                          <ul>
-                            <li>
-                              <a href="#" title="">
-                                <i className="fa fa-smile-o" />
-                              </a>
-                            </li>
-                            <li>
-                              <a href="#" title="">
-                                <i className="fa fa-camera" />
-                              </a>
-                            </li>
-                            <li>
-                              <a href="#" title="">
-                                <i className="fa fa-paperclip" />
-                              </a>
-                            </li>
-                          </ul>
-                        </form>
-                      </div>
-                      {/*message-send-area end*/}
-                    </div>
-                    {/*main-conversation-box end*/}
+                      </li>
+                    </ul>
                   </div>
+                  {/*msg-title end*/}
+                  <div className="messages-list">
+                    <LeftBanner />
+                  </div>
+                  {/*messages-list end*/}
                 </div>
+                {/*msgs-list end*/}
               </div>
-              {/*messages-sec end*/}
+              <div className="col-lg-8 col-md-12 pd-right-none pd-left-none">
+                <div
+                  className="main-conversation-box"
+                  ref={scrollRef}
+                  style={{ overflow: "scroll" }}
+                >
+                  <div className="message-bar-head">
+                    <div className="usr-msg-details">
+                      <div className="usr-ms-img">
+                        <img src="images/resources/m-img1.png" alt="" />
+                      </div>
+                      <div className="usr-mg-info">
+                        <h3>John Doe</h3>
+                        <p>Online</p>
+                      </div>
+                      {/*usr-mg-info end*/}
+                    </div>
+                    <a href="#" title="">
+                      <i className="fa fa-ellipsis-v" />
+                    </a>
+                  </div>
+                  {/*message-bar-head end*/}
+                  <div
+                    className="messages-line mCustomScrollbar _mCS_1"
+                    style={{ height: "auto" }}
+                  >
+                    <div
+                      id="mCSB_1"
+                      className="mCustomScrollBox mCS-light mCSB_vertical mCSB_inside"
+                      style={{ maxHeight: "none" }}
+                      tabIndex="0"
+                    >
+                      <div
+                        id="mCSB_1_container"
+                        className="mCSB_container"
+                        style={{
+                          position: "relative",
+                          top: "0px",
+                          left: "0px",
+                        }}
+                        dir="ltr"
+                      >
+                        <MessageForm
+                          myMessageList={myMessageList}
+                          userMessageList={userMessageList}
+                        />
+                      </div>
+                    </div>
+                    {/*main-message-box end*/}
+                  </div>
+                  {/*messages-line end*/}
+                  <div className="message-send-area">
+                    <form onSubmit={SendMessage}>
+                      <div className="mf-field">
+                        <input
+                          type="text"
+                          name="message"
+                          placeholder="Type a message here"
+                          ref={inputmessage}
+                        />
+                        <button type="submit">Send</button>
+                      </div>
+                      <ul>
+                        <li>
+                          <a href="#" title="">
+                            <i className="fa fa-smile-o" />
+                          </a>
+                        </li>
+                        <li>
+                          <a href="#" title="">
+                            <i className="fa fa-camera" />
+                          </a>
+                        </li>
+                        <li>
+                          <a href="#" title="">
+                            <i className="fa fa-paperclip" />
+                          </a>
+                        </li>
+                      </ul>
+                    </form>
+                  </div>
+                  {/*message-send-area end*/}
+                </div>
+                {/*main-conversation-box end*/}
+              </div>
             </div>
-          </section>
-          {/*messages-page end*/}
-          <footer>
-            <div className="footy-sec mn no-margin">
-              <Footer />
-            </div>
-          </footer>
+          </div>
+          {/*messages-sec end*/}
         </div>
-      </body>
-      <script async type="text/javascript" src="js/jquery.min.js"></script>
-      <script async type="text/javascript" src="js/popper.js"></script>
-      <script async type="text/javascript" src="js/bootstrap.min.js"></script>
-      <script
-        async
-        type="text/javascript"
-        src="js/jquery.mCustomScrollbar.js"
-      ></script>
-      <script
-        async
-        type="text/javascript"
-        src="lib/slick/slick.min.js"
-      ></script>
-      <script async type="text/javascript" src="js/scrollbar.js"></script>
-      <script async type="text/javascript" src="js/script.js"></script>
-      {/*theme-layout end*/}
+      </section>
+      {/*messages-page end*/}
     </>
   );
 };
