@@ -27,4 +27,8 @@ public class UserService {
 		log.info("Entity Email : {} is saved.", entity.getUserEmail());
 		return repository.findByUserEmail(entity.getUserEmail());
 	}
+	
+	public UserEntity getByCredentiials(final String userEmail, final String userPassword) {
+		return repository.findByUserEmailAndUserPassword(userEmail, userPassword);
+	}
 }
