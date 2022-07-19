@@ -38,6 +38,7 @@ const Helpcenter = (props) => (
       jobs={props.jobs}
       messages={props.messages}
       settings={props.settings}
+      closeFooterContent={props.closeFooterContent}
     />
     <main>
       <div className="main-section">

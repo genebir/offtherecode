@@ -58,8 +58,12 @@ const Header = (props) => {
         {state === 2 ? <Companies /> : null} */}
       <div className="container">
         <div className="header-data">
-          <div className="logo" onClick={props.openHomeHandler}>
-            <a onClick={props.home}>
+          <div
+            className="logo"
+            onClick={props.home}
+            style={{ cursor: "pointer" }}
+          >
+            <a onClick={props.closeFooterContent}>
               <img src={`${process.env.PUBLIC_URL}/images/logo.png`} alt="" />
             </a>
           </div>
@@ -75,7 +79,7 @@ const Header = (props) => {
           {/*search-bar end*/}
           <nav className={isMenuBtn ? "active" : null}>
             <ul>
-              <li onClick={props.openHomeHandler}>
+              <li onClick={props.closeFooterContent}>
                 <a href="#!" onClick={props.home}>
                   <span>
                     <img
@@ -87,7 +91,7 @@ const Header = (props) => {
                 </a>
               </li>
               <Fragment>
-                <li onClick={props.closeHomeHandler}>
+                <li onClick={props.closeFooterContent}>
                   <a href="#!" title="" onClick={props.companies}>
                     <span>
                       <img
@@ -108,7 +112,7 @@ const Header = (props) => {
                     </li>
                   </ul>
                 </li>
-                <li onClick={props.closeHomeHandler}>
+                <li onClick={props.closeFooterContent}>
                   <a href="#!" onClick={props.projects}>
                     <span>
                       <img
@@ -119,7 +123,7 @@ const Header = (props) => {
                     Wiki
                   </a>
                 </li>
-                <li onClick={props.closeHomeHandler}>
+                <li onClick={props.closeFooterContent}>
                   <a href="#!" onClick={props.profiles}>
                     <span>
                       <img
@@ -134,11 +138,13 @@ const Header = (props) => {
                       <a href="#!">User Profile</a>
                     </li>
                     <li>
-                      <a href="#!">my-profile-feed</a>
+                      <a href="#!" onClick={props.myprofile}>
+                        my-profile-feed
+                      </a>
                     </li>
                   </ul>
                 </li>
-                <li onClick={props.closeHomeHandler}>
+                <li onClick={props.closeFooterContent}>
                   <a href="#!" onClick={props.jobs}>
                     <span>
                       <img
@@ -149,7 +155,7 @@ const Header = (props) => {
                     Jobs
                   </a>
                 </li>
-                <li onClick={props.closeHomeHandler}>
+                <li onClick={props.closeFooterContent}>
                   <a
                     href="#!"
                     title=""
@@ -168,11 +174,12 @@ const Header = (props) => {
                     <HeaderMessage
                       messages={props.messages}
                       messagebanner={messagebanner}
+                      closeFooterContent={props.closeFooterContent}
                     />
                   )}
                   {/*notification-box end*/}
                 </li>
-                <li onClick={props.closeHomeHandler}>
+                <li onClick={props.closeFooterContent}>
                   <a
                     href="#!"
                     title=""
@@ -187,7 +194,11 @@ const Header = (props) => {
                     </span>
                     Notification
                   </a>
-                  {isNotification && <HeaderNotification />}
+                  {isNotification && (
+                    <HeaderNotification
+                      closeFooterContent={props.closeFooterContent}
+                    />
+                  )}
                 </li>
               </Fragment>
             </ul>
@@ -199,7 +210,11 @@ const Header = (props) => {
             </a>
           </div>
           {/*menu-btn end*/}
-          <div className="user-account" onClick={userhandler}>
+          <div
+            className="user-account"
+            onClick={userhandler}
+            style={{ cursor: "pointer" }}
+          >
             <div className="user-info">
               <img src="images/resources/user.png" alt="" />
               <a href="#!" title="">
@@ -207,7 +222,11 @@ const Header = (props) => {
               </a>
               <i className="la la-sort-down" />
             </div>
-            <HeaderUser isuser={isUser} settings={props.settings} />
+            <HeaderUser
+              isuser={isUser}
+              settings={props.settings}
+              closeFooterContent={props.closeFooterContent}
+            />
           </div>
         </div>
         {/*header-data end*/}

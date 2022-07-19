@@ -300,11 +300,6 @@ const Profilesetting = () => {
             {/*account-tabs-setting end*/}
           </div>
         </section>
-        <footer>
-          <div className="footy-sec mn no-margin">
-            <Footer />
-          </div>
-        </footer>
       </div>
       {/*theme-layout end*/}
     </>

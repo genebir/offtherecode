@@ -3,12 +3,12 @@ const Footer = (props) => {
     <div className="footy-sec mn no-margin">
       <div className="container">
         <ul>
-          <li>
+          <li onClick={props.openFooterContent}>
             <a href="#!" title="" onClick={props.helpcenter}>
               Help Center
             </a>
           </li>
-          <li>
+          <li onClick={props.openFooterContent}>
             <a href="#!" title="" onClick={props.about}>
               About
             </a>
@@ -33,7 +33,7 @@ const Footer = (props) => {
               Career
             </a>
           </li>
-          <li>
+          <li onClick={props.openFooterContent}>
             <a href="#!" title="" onClick={props.forum}>
               Forum
             </a>

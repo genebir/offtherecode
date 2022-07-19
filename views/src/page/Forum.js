@@ -83,7 +83,7 @@ const Forum = (props) => {
         <header>
           <div className="container">
             <div className="header-data">
-              <div className="logo pd-btm">
+              <div className="logo pd-btm" onClick={props.closeFooterContent}>
                 <a href="#!" title="" onClick={props.home}>
                   <img src="images/logo.png" alt="" />
                 </a>

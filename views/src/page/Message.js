@@ -198,11 +198,6 @@ const Message = () => {
         </div>
       </section>
       {/*messages-page end*/}
-      <footer>
-        <div className="footy-sec mn no-margin">
-          <Footer />
-        </div>
-      </footer>
     </>
   );
 };

@@ -30,7 +30,7 @@ const HelpCenterHeader = (props) => {
         {state === 2 ? <Companies /> : null} */}
       <div className="container">
         <div className="header-data">
-          <div className="logo">
+          <div className="logo" onClick={props.closeFooterContent}>
             <a onClick={props.home}>
               <img src={`${process.env.PUBLIC_URL}/images/logo.png`} alt="" />
             </a>
@@ -47,7 +47,7 @@ const HelpCenterHeader = (props) => {
           {/*search-bar end*/}
           <nav className={isMenuBtn ? "active" : null}>
             <ul>
-              <li>
+              <li onClick={props.closeFooterContent}>
                 <a href="#!" onClick={props.home}>
                   <span>
                     <img
@@ -58,7 +58,7 @@ const HelpCenterHeader = (props) => {
                   Home
                 </a>
               </li>
-              <li>
+              <li onClick={props.closeFooterContent}>
                 <a href="#!" title="" onClick={props.companies}>
                   <span>
                     <img
@@ -79,7 +79,7 @@ const HelpCenterHeader = (props) => {
                   </li>
                 </ul>
               </li>
-              <li>
+              <li onClick={props.closeFooterContent}>
                 <a href="#!" onClick={props.projects}>
                   <span>
                     <img
@@ -90,7 +90,7 @@ const HelpCenterHeader = (props) => {
                   Wiki
                 </a>
               </li>
-              <li>
+              <li onClick={props.closeFooterContent}>
                 <a href="#!" onClick={props.profiles}>
                   <span>
                     <img
@@ -109,7 +109,7 @@ const HelpCenterHeader = (props) => {
                   </li>
                 </ul>
               </li>
-              <li>
+              <li onClick={props.closeFooterContent}>
                 <a href="#!" onClick={props.jobs}>
                   <span>
                     <img
@@ -139,6 +139,7 @@ const HelpCenterHeader = (props) => {
                   <HeaderMessage
                     messages={props.messages}
                     messagebanner={messagebanner}
+                    closeFooterContent={props.closeFooterContent}
                   />
                 )}
                 {/*notification-box end*/}
@@ -158,7 +159,11 @@ const HelpCenterHeader = (props) => {
                   </span>
                   Notification
                 </a>
-                {isNotification && <HeaderNotification />}
+                {isNotification && (
+                  <HeaderNotification
+                    closeFooterContent={props.closeFooterContent}
+                  />
+                )}
               </li>
             </ul>
           </nav>
@@ -177,7 +182,11 @@ const HelpCenterHeader = (props) => {
               </a>
               <i className="la la-sort-down" />
             </div>
-            <HeaderUser isuser={isUser} settings={props.settings} />
+            <HeaderUser
+              isuser={isUser}
+              settings={props.settings}
+              closeFooterContent={props.closeFooterContent}
+            />
           </div>
           <div className="search-sec">
             <div className="container">

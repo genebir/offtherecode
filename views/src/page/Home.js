@@ -12,6 +12,7 @@ import Helpcenter from "./Helpcenter";
 import About from "./About";
 import Forum from "./Forum";
 import Footer from "./Layout/Footer";
+import Selfprofile from "./Selfprofile";
 
 const headerbanner = (states, action) => {
   switch (action.type) {
@@ -23,6 +24,8 @@ const headerbanner = (states, action) => {
       return (states = 3);
     case "PROFILES":
       return (states = 4);
+    case "MYPROFILE":
+      return (states = 4.1);
     case "JOBS":
       return (states = 5);
     case "MESSAGES":
@@ -42,6 +45,8 @@ const Footerbanner = (states, action) => {
       return (states = 2);
     case "FORUM":
       return (states = 3);
+    case "NOTHING":
+      return (states = 4);
     default:
       return (states = null);
   }
@@ -58,10 +63,14 @@ const Home = () => {
 
   const closeFooterContent = () => {
     setIsFooterContent(false);
+    setIsContent(true);
+    footDispatch({ dispatch: "NOTHING" });
+    console.log(isContent);
   };
 
   const openFooterContent = () => {
     setIsFooterContent(true);
+    setIsContent(false);
   };
 
   const isprojhandler = () => {
@@ -90,9 +99,9 @@ const Home = () => {
     });
   };
 
-  const reset = () => {
+  const nothing = () => {
     footDispatch({
-      type: "RESET",
+      type: "NOTHING",
     });
   };
 
@@ -117,6 +126,12 @@ const Home = () => {
   const profiles = () => {
     dispatch({
       type: "PROFILES",
+    });
+  };
+
+  const myprofile = () => {
+    dispatch({
+      type: "MYPROFILE",
     });
   };
 
@@ -185,13 +200,15 @@ const Home = () => {
             companies={companies}
             projects={wiki}
             profiles={profiles}
+            myprofile={myprofile}
             jobs={jobs}
             messages={messages}
             settings={settings}
+            closeFooterContent={closeFooterContent}
           />
         ) : null}
         {/* <HomeContents /> */}
-        {isContent && (
+        {!isFooterContent && (
           <Fragment>
             {state === 1 && (
               <HomeContents
@@ -204,6 +221,7 @@ const Home = () => {
             {state === 2 && <Companies />}
             {state === 3 && <Projects />}
             {state === 4 && <Profile />}
+            {state === 4.1 && <Selfprofile />}
             {state === 5 && <Jobs />}
             {state === 6 && <Message />}
             {state === 7 && <Profilesetting />}
@@ -211,23 +229,33 @@ const Home = () => {
         )}
 
         <footer>
-          <div>
-            {footer === 1 && (
-              <Helpcenter
-                home={home}
-                companies={companies}
-                projects={wiki}
-                profiles={profiles}
-                jobs={jobs}
-                messages={messages}
-                settings={settings}
-              />
-            )}
-            {footer === 2 && <About />}
-            {footer === 3 && <Forum home={home} />}
-          </div>
+          {isFooterContent && (
+            <div>
+              {footer === 1 && (
+                <Helpcenter
+                  home={home}
+                  companies={companies}
+                  projects={wiki}
+                  profiles={profiles}
+                  jobs={jobs}
+                  messages={messages}
+                  settings={settings}
+                  closeFooterContent={closeFooterContent}
+                />
+              )}
+              {footer === 2 && <About />}
+              {footer === 3 && (
+                <Forum home={home} closeFooterContent={closeFooterContent} />
+              )}
+            </div>
+          )}
 
-          <Footer helpcenter={helpcenter} forum={forum} about={about} />
+          <Footer
+            helpcenter={helpcenter}
+            forum={forum}
+            about={about}
+            openFooterContent={openFooterContent}
+          />
         </footer>
       </div>
     </Fragment>
