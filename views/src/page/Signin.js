@@ -88,9 +88,9 @@ const Signin = () => {
                         <li
                           data-tab="tab-2"
                           className={
-                            state === 1
-                              ? "animated fadeIn"
-                              : "animated fadeIn current"
+                            state === 2
+                              ? "animated fadeIn current"
+                              : "animated fadeIn"
                           }
                         >
                           <a title="" onClick={signup}>

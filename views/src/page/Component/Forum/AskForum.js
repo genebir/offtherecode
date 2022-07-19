@@ -2,7 +2,10 @@ const AskForum = (props) => {
   const submitHandler = () => {};
   return (
     <div className="wrapper overlay">
-      <div className="overview-box open" id="question-box">
+      <div
+        className={props.isPost ? "overview-box open" : "overview-box"}
+        id="question-box"
+      >
         <div className="overview-edit">
           <h3>Ask a Question</h3>
           <form onSubmit={submitHandler}>
@@ -20,7 +23,12 @@ const AskForum = (props) => {
               Cancel
             </button>
           </form>
-          <a title="" className="close-box" onClick={props.postHandler}>
+          <a
+            href="#!"
+            title=""
+            className="close-box"
+            onClick={props.postHandler}
+          >
             <i className="la la-close" />
           </a>
         </div>

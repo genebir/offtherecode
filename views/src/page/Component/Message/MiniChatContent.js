@@ -1,6 +1,8 @@
-const MiniChatContent = () => {
+const MiniChatContent = (props) => {
   return (
-    <div className="conversation-box active">
+    <div
+      className={props.isChat ? "conversation-box active" : "conversation-box"}
+    >
       <div className="con-title mg-3">
         <div className="chat-user-info">
           <img src="images/resources/us-img1.png" alt="" />

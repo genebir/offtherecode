@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-const HeaderMessage = () => {
+const HeaderMessage = (props) => {
   return (
     <div>
       <div
@@ -66,10 +66,10 @@ const HeaderMessage = () => {
             </div>
             {/*notification-info */}
           </div>
-          <div className="view-all-nots">
-            <Link to="/message" title="">
+          <div className="view-all-nots" onClick={props.messagebanner}>
+            <a href="#!" title="" onClick={props.messages}>
               View All Messsages
-            </Link>
+            </a>
           </div>
         </div>
         {/*nott-list end*/}

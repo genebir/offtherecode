@@ -28,7 +28,6 @@ const Profile = () => (
     <link rel="stylesheet" type="text/css" href="css/style.css" />
     <link rel="stylesheet" type="text/css" href="css/responsive.css" />
     <div className="wrapper">
-      <Header />
       {/*header end*/}
       <section className="companies-info">
         <div className="container">

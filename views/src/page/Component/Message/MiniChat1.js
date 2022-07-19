@@ -3,16 +3,10 @@ import $ from "jquery";
 import MiniChatContent from "./MiniChatContent";
 
 const MiniChat1 = () => {
-  const [isChat, setIsChat] = useState(2);
+  const [isChat, setIsChat] = useState(false);
 
   const Chathandler = () => {
-    if (isChat === 2) {
-      setIsChat(1);
-      console.log(isChat);
-    } else {
-      setIsChat(2);
-      console.log(isChat);
-    }
+    setIsChat((event) => !event);
   };
 
   return (
@@ -23,7 +17,7 @@ const MiniChat1 = () => {
         </a>
         <span>2</span>
       </div>
-      {isChat === 1 ? <MiniChatContent /> : null}
+      {isChat && <MiniChatContent isChat={isChat} />}
     </div>
   );
 };

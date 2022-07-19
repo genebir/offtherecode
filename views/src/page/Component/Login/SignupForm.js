@@ -85,8 +85,8 @@ const SignupForm = (props) => {
       <div
         className={
           props.state === 2
-            ? "sign_in_sec animated fadeIn"
-            : "sign_in_sec animated fadeIn current"
+            ? "sign_in_sec animated fadeIn current"
+            : "sign_in_sec animated fadeIn"
         }
         id="tab-2"
       >

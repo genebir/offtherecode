@@ -42,7 +42,7 @@ const HeaderUser = (props) => {
       <h3>Setting</h3>
       <ul className="us-links">
         <li>
-          <a href="profile-account-setting.html" title="">
+          <a href="#!" title="" onClick={props.settings}>
             Account Setting
           </a>
         </li>

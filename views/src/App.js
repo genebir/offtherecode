@@ -23,13 +23,13 @@ const App = () => {
     <div>
       <Routes>
         <Route path="/" element={ctx.isLoggedIn ? <Home /> : <Signin />} />
+        <Route path="/signin" element={<Signin />} />
         {/* <Route path="/about" element={<About />} />
         <Route path="/companies" element={<Companies />} />
         <Route path="/companies/profile" element={<Companyprofile />} />
         <Route path="/forum" element={<Forum />} />
         <Route path="/help" element={<Helpcenter />} />
         <Route path="/jobs" element={<Jobs />} />
-        <Route path="/signin" element={<Signin />} />
         <Route path="/message" element={<Message />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/profile/users" element={<Userprofile />} />

@@ -28,7 +28,6 @@ const Projects = () => (
     <link rel="stylesheet" type="text/css" href="css/style.css" />
     <link rel="stylesheet" type="text/css" href="css/responsive.css" />
     <div className="wrapper">
-      <Header />
       {/*header end*/}
       <div className="search-sec">
         <div className="container">
