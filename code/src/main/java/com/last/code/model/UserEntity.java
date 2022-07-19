@@ -7,38 +7,34 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import com.sun.istack.NotNull;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
 @Entity
-@Table(name="user")
+@Table(name="TAB_USER")
 public class UserEntity {
+	
 	@Id
-	@Column(name = "USER_PNO", unique=true)
-    @GeneratedValue(strategy = GenerationType.AUTO)
-	@NotNull
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "USER_PNO", unique=true, nullable = false)
 	private Long userPno;
 	
-	@Column(name = "USER_EMAIL", length = 200, unique=true)
-	@NotNull
+	@Column(name = "USER_EMAIL", length = 200, unique=true, nullable = false)
 	private String userEmail;
 	
-	@Column(name = "USER_PASSWORD", length = 20)
-	@NotNull
-	private String userPW;
+	@Column(name = "USER_PASSWORD", length = 20, nullable = false)
+	private String userPassword;
 	
-	@Column(name = "USER_NICK", length = 30, unique=true)
-	@NotNull
+	@Column(name = "USER_NICK", length = 30, unique=true, nullable = false)
 	private String userNick;
 	
 	@Column(name = "USER_PHONE", length = 13, unique=true)
 	private String userPhone;
+	
 }
