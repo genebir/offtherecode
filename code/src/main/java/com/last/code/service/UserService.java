@@ -21,7 +21,6 @@ public class UserService {
 	@Autowired
 	private UserRepository repository;
 
-
 	public List<UserEntity> create(final UserEntity entity) {
 		repository.save(entity);
 		log.info("Entity Email : {} is saved.", entity.getUserEmail());
@@ -30,5 +29,13 @@ public class UserService {
 	
 	public UserEntity getByCredentiials(final String userEmail, final String userPassword) {
 		return repository.findByUserEmailAndUserPassword(userEmail, userPassword);
+	}
+	
+	public boolean checkEmail(String userEmail) {
+		return repository.existsByUserEmail(userEmail);
+	}
+	
+	public boolean checkNick(String userNick) {
+		return repository.existsByUserNick(userNick);
 	}
 }
