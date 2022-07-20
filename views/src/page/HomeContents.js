@@ -162,13 +162,13 @@ const HomeContents = (props) => {
                     {/*suggestions end*/}
                     <div className="tags-sec full-width">
                       <ul>
-                        <li>
-                          <a href="#" title="">
+                        <li onClick={props.openFooterContent}>
+                          <a href="#!" title="" onClick={props.helpcenter}>
                             Help Center
                           </a>
                         </li>
-                        <li>
-                          <a href="#" title="">
+                        <li onClick={props.openFooterContent}>
+                          <a href="#!" title="" onClick={props.about}>
                             About
                           </a>
                         </li>
@@ -190,6 +190,11 @@ const HomeContents = (props) => {
                         <li>
                           <a href="#" title="">
                             Career
+                          </a>
+                        </li>
+                        <li onClick={props.openFooterContent}>
+                          <a href="#!" title="" onClick={props.forum}>
+                            Forum
                           </a>
                         </li>
                         <li>

@@ -1,7 +1,14 @@
-const Info = () => {
+const Info = (props) => {
   return (
     <div>
-      <div className="product-feed-tab current" id="info-dd">
+      <div
+        className={
+          props.state === 2
+            ? "product-feed-tab animated fadeIn current"
+            : "product-feed-tab animated fadeIn"
+        }
+        id="info-dd"
+      >
         <div className="user-profile-ov">
           <h3>
             <a href="#" title="" className="overview-open">

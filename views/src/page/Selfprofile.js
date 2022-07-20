@@ -33,7 +33,7 @@ const selfprofilebanner = (states, action) => {
   }
 };
 
-const Selfprofile = () => {
+const Selfprofile = (props) => {
   const [state, dispatch] = useReducer(selfprofilebanner, 1);
 
   const feed = () => {
@@ -439,19 +439,19 @@ const Selfprofile = () => {
                       {/* tab-feed end*/}
                     </div>
                     {/*user-tab-sec end*/}
-                    {state === 1 ? <Feed /> : null}
-                    {state === 2 ? <Info /> : null}
-                    {state === 3 ? <Jobs /> : null}
-                    {state === 4 ? <Bids /> : null}
-                    {state === 5 ? <PortFolio /> : null}
-                    {state === 6 ? <Reviews /> : null}
-                    {state === 7 ? <Payment /> : null}
+                    <Feed state={state} />
+                    <Info state={state} />
+                    <Jobs state={state} />
+                    <Bids state={state} />
+                    <PortFolio state={state} />
+                    <Reviews state={state} />
+                    <Payment state={state} />
                     {/* <Mybids />  본인 피드는 조건 만족시 출력*/}
                   </div>
                   {/*main-ws-sec end*/}
                 </div>
                 <div className="col-lg-3">
-                  <RightSidebar />
+                  <RightSidebar settings={props.settings} />
                 </div>
               </div>
             </div>

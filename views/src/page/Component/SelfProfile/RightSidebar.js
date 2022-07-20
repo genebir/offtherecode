@@ -1,9 +1,9 @@
-const RightSidebar = () => {
+const RightSidebar = (props) => {
   return (
     <div>
       <div className="right-sidebar">
         <div className="message-btn">
-          <a href="profile-account-setting.html" title="">
+          <a href="#!" title="" onClick={props.settings}>
             <i className="fas fa-cog" /> Setting
           </a>
         </div>

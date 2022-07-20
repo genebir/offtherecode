@@ -1,7 +1,14 @@
-const Feed = () => {
+const Feed = (props) => {
   return (
     <div>
-      <div className="product-feed-tab current" id="feed-dd">
+      <div
+        className={
+          props.state === 1
+            ? "product-feed-tab animated fadeIn current"
+            : "product-feed-tab animated fadeIn"
+        }
+        id="feed-dd"
+      >
         <div className="posts-section">
           <div className="post-bar">
             <div className="post_topbar">

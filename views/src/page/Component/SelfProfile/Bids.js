@@ -1,7 +1,14 @@
-const Bids = () => {
+const Bids = (props) => {
   return (
     <div>
-      <div className="product-feed-tab current" id="my-bids">
+      <div
+        className={
+          props.state === 4
+            ? "product-feed-tab animated fadeIn current"
+            : "product-feed-tab animated fadeIn"
+        }
+        id="my-bids"
+      >
         <ul className="nav nav-tabs bid-tab" id="myTab" role="tablist">
           <li className="nav-item">
             <a

@@ -216,12 +216,16 @@ const Home = () => {
                 isJob={isJob}
                 isprojhandler={isprojhandler}
                 isjobhandler={isjobhandler}
+                helpcenter={helpcenter}
+                forum={forum}
+                about={about}
+                openFooterContent={openFooterContent}
               />
             )}
             {state === 2 && <Companies />}
             {state === 3 && <Projects />}
             {state === 4 && <Profile />}
-            {state === 4.1 && <Selfprofile />}
+            {state === 4.1 && <Selfprofile settings={settings} />}
             {state === 5 && <Jobs />}
             {state === 6 && <Message />}
             {state === 7 && <Profilesetting />}

@@ -1,7 +1,14 @@
-const Reviews = () => {
+const Reviews = (props) => {
   return (
     <div>
-      <div className="product-feed-tab current" id="rewivewdata">
+      <div
+        className={
+          props.state === 6
+            ? "product-feed-tab animated fadeIn current"
+            : "product-feed-tab animated fadeIn"
+        }
+        id="rewivewdata"
+      >
         <section />
         <div className="posts-section">
           <div className="post-bar reviewtitle">

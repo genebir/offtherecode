@@ -1,4 +1,4 @@
-import { useContext, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../../../store/auth-context";
 import ErrorModal from "../../Layout/ErrorModal";
@@ -12,20 +12,20 @@ const LoginForm = (props) => {
 
   const loginHandler = (loginData) => {
     //로그인 데이터 전송 함수
-    fetch("https://react-http-fa2fe-default-rtdb.firebaseio.com/login.json", {
+    fetch("http://localhost:8888/otc/signin", {
       method: "POST",
       body: JSON.stringify(loginData),
       headers: {
         "Content-Type": "application/json",
       },
-    }).then(() => {
-      history("/", { replace: true });
-    });
+    })
+      .then((response) => console.log(response))
+      .then();
   };
 
   const onSubmitHandler = (event) => {
-    // 로그인 버튼 눌렀을때 작동하는 함수
     event.preventDefault();
+    // 로그인 버튼 눌렀을때 작동하는 함수
     const enterUserName = inputUserName.current.value;
     const enterPassword = inputPassword.current.value;
 
@@ -35,12 +35,16 @@ const LoginForm = (props) => {
     }
 
     const LoginJsonData = {
-      id: enterUserName,
-      password: enterPassword,
+      userEmail: enterUserName,
+      userPassword: enterPassword,
     };
-
-    loginHandler(LoginJsonData);
-    authCtx.onLogin(enterUserName, enterPassword);
+    try {
+      loginHandler(LoginJsonData);
+      authCtx.onLogin(enterUserName, enterPassword);
+      history("/");
+    } catch (err) {
+      setError(true);
+    }
   };
   return (
     <div>
