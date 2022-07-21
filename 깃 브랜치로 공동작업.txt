@@ -8,13 +8,13 @@
 
 4. git checkout 각자의 브란치
 
-5. git add -A
+5. git add -A - 수정완료된 파일들을 스테이지에 올림
 
 5-5. git config --global core.autocrlf true
 
-6. git commit -m "commit message"
+6. git commit -m "commit message" - 스테이지에 있는 파일을 커밋해줌
 
-7. git push -u origin 각자의 브랜치
+7. git push -u origin main - 깃허브로 푸시
 
 
 git status 현재상태 확인
