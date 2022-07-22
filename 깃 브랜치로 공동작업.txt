@@ -16,5 +16,7 @@
 
 7. git push -u origin main - 깃허브로 푸시
 
+7-7. git pull origin main - 깃허브 푸시 오류일 때 사용
+
 
 git status 현재상태 확인
