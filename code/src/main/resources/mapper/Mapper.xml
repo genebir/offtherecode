@@ -7,3 +7,4 @@
 Mapper 예시
 <mapper namespace="com.icia.member.repository.MemberMapperRepository"></mapper>
 -->
+<mapper namespace="com.last.code.repository.UserMapperRepository"></mapper>
