@@ -3,8 +3,5 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<!--
-Mapper 예시
-<mapper namespace="com.icia.member.repository.MemberMapperRepository"></mapper>
--->
-<mapper namespace="com.last.code.repository.UserMapperRepository"></mapper>
+
+<mapper namespace="com.last.code.repository.WikiMapperRepository"></mapper>
