@@ -4,4 +4,6 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 
+<mapper namespace="com.last.code.repository.WikiMemberMapperRepository">
+</mapper>
 <mapper namespace="com.last.code.repository.WikiMapperRepository"></mapper>
