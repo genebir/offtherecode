@@ -11,12 +11,19 @@ public class FeedService {
     @Autowired
     private FeedMapperRepository repository;
 
-    public void writeFeed(FeedDTO dto) {
-        repository.writeFeed(dto);
+    public int writeFeed(FeedDTO dto) {
+        return repository.writeFeed(dto);
     }
 
     public FeedDTO detailFeed(int pno) {
         return repository.feedDetail(pno);
     }
 
+    public int deleteFeed(int pno) {
+        return repository.deleteFeed(pno);
+    }
+
+    public int updateFeed(FeedDTO dto) {
+        return repository.updateFeed(dto);
+    }
 }
