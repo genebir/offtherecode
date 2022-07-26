@@ -16,26 +16,26 @@ public class WikiService {
 
     // Select all
     public List<WikiDTO> WikiList() {
-    return repository.wikiList();
+        return repository.wikiList();
     } // wikiList
 
     // Select one
     public WikiDTO wikiDetail(int wiki_pno) {
-        return repository.wikiDetail();
+        return repository.wikiDetail(wiki_pno);
     } // wikiDetail
 
     // Insert
-    public void insertWiki(WikiDTO dto) {
-        repository.insertWiki();
-    } // insertWiki
+    public int wikiInsert(WikiDTO dto) {
+        return repository.wikiInsert(dto);
+    } // wikiInsert
 
     // Update
-    public void updateWiki(WikiDTO dto) {
-        repository.updateWiki();
-    } // updateWiki
+    public int wikiUpdate(WikiDTO dto) {
+        return repository.wikiUpdate(dto);
+    } // wikiUpdate
 
     // Delete
-    public void deleteWiki(int wiki_pno) {
-        repository.deleteWiki();
+    public int WikiDelete(int wiki_pno) {
+       return repository.wikiDelete(wiki_pno);
     } // deleteWiki
 }

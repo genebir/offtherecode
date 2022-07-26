@@ -4,10 +4,7 @@ import com.last.code.model.WikiDTO;
 import com.last.code.service.WikiService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -22,33 +19,31 @@ public class WikiController {
     // Select all
     @GetMapping("/list")
     public List<WikiDTO> wikiList() {
-        return WikiList;
-    } // select all
-
+        return service.WikiList();
 } // wikiList
 
     // Select one
     @GetMapping("/detail")
-    public WikiDTO detailWiki(int wiki_pno) {
-
-    } // detailWiki
+    public WikiDTO wikiDetail(@RequestParam("wiki_pno") int wiki_pno) {
+return service.wikiDetail(wiki_pno);
+    } // wikiDetail
 
     // Insert
-    @GetMapping("/insert")
-public int insertWiki(WikiDTO dto) {
-
-    } // insert
+    @PostMapping
+public int wikiInsert(@RequestBody WikiDTO dto) {
+return service.wikiInsert(dto);
+    } // wikiInsert
 
     // Update
-    @GetMapping("/update")
-public int updateWiki(WikiDTO dto) {
-
-    } // update
+    @PostMapping("/update")
+public int wikiUpdate(@RequestBody WikiDTO dto) {
+return service.wikiUpdate(dto);
+    } // wikiUpdate
 
     // Delete
     @GetMapping("/delete")
-public int deleteWiki(@RequestBody int wiki_pno){
-
-    } // deleteWiki
+public int wikiDelete(@RequestParam("wiki_pno") int wiki_pno){
+return service.WikiDelete(wiki_pno);
+    } // wikiDelete
 
 } // class

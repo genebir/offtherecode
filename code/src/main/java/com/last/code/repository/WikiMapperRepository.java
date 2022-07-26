@@ -18,13 +18,13 @@ WikiDTO wikiDetail(int wiki_pno);
 
 // Insert
 @Insert("insert into tbl_wiki(wiki_pno, wiki_user_fno, wiki_content, wiki_code, wiki_lang) values(#{wiki_pno}, #{wiki_user_fno}, #{wiki_content}, #{wiki_code}, #{wiki_lang})")
-    void insertWiki(WikiDTO dto);
+    int wikiInsert(WikiDTO dto);
 
 // Update
     @Update("update tbl_wiki set wiki_content = #{wiki_content}, wiki_code = #{wiki_code}, wiki_lang = #{wiki_lang} where wiki_pno = #{wiki_pno}")
-    void updateWiki(WikiDTO dto);
+    int wikiUpdate(WikiDTO dto);
 
     // Delete
     @Delete("delete from tbl_wiki where wiki_pno = #{wiki_pno}")
-    void deleteWiki(int wiki_pno);
+    int wikiDelete(int wiki_pno);
 }

@@ -18,13 +18,14 @@ public interface WikiMemberMapperRepository {
 
     // Insert
     @Insert("INSERT INTO TBL_WIKI_MEMBER(WIKI_MEMBER_PNO, WIKI_MEMBER_WIKI_FNO, WIKI_MEMBER_USER_FNO, WIKI_MEMBER_CONTENT) VALUES(#{WIKI_MEMBER_PNO}, #{WIKI_MEMBER_WIKI_FNO}, #{WIKI_MEMBER_USER_FNO}, #{WIKI_MEMBER_CONTENT})")
-void insertWikiMember(WikiMemberDTO dto);
+int wikiMemberInsert(WikiMemberDTO dto);
 
 // Update
 @Update("UPDATE TBL_WIKI_MEMBER SET WIKI_MEMBER_CONTENT = #{WIKI_MEMBER_CONTENT} WHERE WIKI_MEMBER_PNO = #{WIKI_MEMBER_PNO}")
-    void updateWikiMember(WikiMemberDTO dto);
+    int wikiMemberUpdate(WikiMemberDTO dto);
 
 // Delete
     @Delete("DELETE FROM TBL_WIKI_MEMBER WHERE WIKI_MEMBER_PNO = #{WIKI_MEMBER_PNO}")
-void deleteWikiMember(int wiki_member_pno);
+int wikiMemberDelete(int wiki_member_pno);
+
 }
