@@ -29,7 +29,7 @@ return service.wikiDetail(wiki_pno);
     } // wikiDetail
 
     // Insert
-    @PostMapping
+    @PostMapping("/insert")
 public int wikiInsert(@RequestBody WikiDTO dto) {
 return service.wikiInsert(dto);
     } // wikiInsert

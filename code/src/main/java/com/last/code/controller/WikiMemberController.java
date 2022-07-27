@@ -41,7 +41,7 @@ public int wikiMemberInsert(@RequestBody WikiMemberDTO dto) {
     } // wikiMemberUpdate
 
     // Delete
-    @GetMapping("/detail")
+    @GetMapping("/delete")
     public int wikiMemberDelete(@RequestParam("wiki_member_pno") int wiki_member_pno) {
         return service.wikiMemberDelete(wiki_member_pno);
     } // wikiMemberDelete
