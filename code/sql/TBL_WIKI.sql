@@ -3,6 +3,7 @@ DROP TABLE TBL_WIKI CASCADE CONSTRAINTS;
 CREATE TABLE TBL_WIKI(
                          WIKI_PNO NUMBER(10) PRIMARY KEY ,
                          WIKI_USER_FNO NUMBER(10) NOT NULL,
+                         wiki_title varchar(200) not null,
                          WIKI_CONTENT VARCHAR2(2000) NOT NULL,
                          WIKI_CODE varchar2(2000) NOT NULL,
                          WIKI_LANG VARCHAR2(20) NOT NULL,

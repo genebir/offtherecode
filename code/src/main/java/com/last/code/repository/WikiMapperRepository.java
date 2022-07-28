@@ -17,7 +17,7 @@ public interface WikiMapperRepository {
 WikiDTO wikiDetail(int wiki_pno);
 
 // Insert
-@Insert("insert into tbl_wiki(wiki_pno, wiki_user_fno, wiki_content, wiki_code, wiki_lang) values(seq_wiki_next.val, #{wiki_user_fno}, #{wiki_content}, #{ewiki_code}, #{wiki_lang})")
+@Insert("insert into tbl_wiki(wiki_pno, wiki_user_fno, wiki_title, wiki_content, wiki_code, wiki_lang) values(seq_wiki_next.val, #{wiki_user_fno}, #{wiki_title}, #{wiki_content}, #{ewiki_code}, #{wiki_lang})")
     int wikiInsert(WikiDTO dto);
 
 // Update
