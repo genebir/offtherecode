@@ -35,7 +35,7 @@ public int wikiMemberInsert(@RequestBody WikiMemberDTO dto) {
     } // wikiMemberInsert
 
     // Update
-    @PostMapping()
+    @PostMapping("/update")
     public int wikiMemberUpdate(@RequestBody WikiMemberDTO dto) {
         return service.wikiMemberUpdate(dto);
     } // wikiMemberUpdate
