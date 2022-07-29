@@ -35,7 +35,9 @@ const SignupForm = (props) => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(SignupJsonData),
-      }).then((response) => console.log(response.json()));
+      })
+        .then((response) => console.log(response.json()))
+        .then((data) => console.log(data));
     } catch {
       setError(true);
     }

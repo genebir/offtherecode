@@ -13,6 +13,7 @@ import About from "./About";
 import Forum from "./Forum";
 import Footer from "./Layout/Footer";
 import Selfprofile from "./Selfprofile";
+import MessageBack from "./Message backup";
 
 const headerbanner = (states, action) => {
   switch (action.type) {
@@ -227,7 +228,7 @@ const Home = () => {
             {state === 4 && <Profile />}
             {state === 4.1 && <Selfprofile settings={settings} />}
             {state === 5 && <Jobs />}
-            {state === 6 && <Message />}
+            {state === 6 && <MessageBack />}
             {state === 7 && <Profilesetting />}
           </Fragment>
         )}

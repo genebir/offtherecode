@@ -33,25 +33,6 @@ const Header = (props) => {
     setIsMenuBtn((event) => !event);
   };
 
-  // useEffect(() => {
-  //   switch (state) {
-  //     case 1:
-  //       return <Home />;
-  //     case 2:
-  //       return <Companies />;
-  //     case 3:
-  //       return <Projects />;
-  //     case 4:
-  //       return <Profile />;
-  //     case 5:
-  //       return <Jobs />;
-  //     case 6:
-  //       return <Message />;
-  //     default:
-  //       return <ErrorModal />;
-  //   }
-  // }, [state]);
-
   return (
     <header>
       {/* {state === 1 ? <Home /> : null}

@@ -1,4 +1,4 @@
-import { useReducer } from "react";
+import { useReducer, useRef } from "react";
 import Bids from "./Component/SelfProfile/Bids";
 import Feed from "./Component/SelfProfile/Feed";
 import Info from "./Component/SelfProfile/Info/Info";
@@ -34,6 +34,7 @@ const selfprofilebanner = (states, action) => {
 };
 
 const Selfprofile = (props) => {
+  const inputFile = useRef();
   const [state, dispatch] = useReducer(selfprofilebanner, 1);
 
   const feed = () => {
@@ -77,6 +78,11 @@ const Selfprofile = (props) => {
       type: "PAYMENT",
     });
   };
+
+  const consoledir = () => {
+    console.dir(inputFile.current.value);
+  };
+
   return (
     <>
       <meta charSet="UTF-8" />
@@ -133,7 +139,12 @@ const Selfprofile = (props) => {
                           alt=""
                         />
                         <div className="add-dp" id="OpenImgUpload">
-                          <input type="file" id="file" />
+                          <input
+                            type="file"
+                            id="file"
+                            ref={inputFile}
+                            onUpload={consoledir}
+                          />
                           <label htmlFor="file">
                             <i class="fas fa-camera" />
                           </label>

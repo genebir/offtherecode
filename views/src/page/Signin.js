@@ -81,7 +81,11 @@ const Signin = () => {
                               : "animated fadeIn"
                           }
                         >
-                          <a title="" onClick={signin}>
+                          <a
+                            title=""
+                            onClick={signin}
+                            style={{ cursor: "pointer" }}
+                          >
                             Sign in
                           </a>
                         </li>
@@ -93,7 +97,11 @@ const Signin = () => {
                               : "animated fadeIn"
                           }
                         >
-                          <a title="" onClick={signup}>
+                          <a
+                            title=""
+                            onClick={signup}
+                            style={{ cursor: "pointer" }}
+                          >
                             Sign up
                           </a>
                         </li>

@@ -70,6 +70,9 @@ const HeaderMessage = (props) => {
             <a href="#!" title="" onClick={props.messages}>
               View All Messsages
             </a>
+            {/* <Link to="/chat" title="" onClick={props.messages}>
+              View All Messsages
+            </Link> */}
           </div>
         </div>
         {/*nott-list end*/}

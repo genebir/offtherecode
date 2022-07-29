@@ -16,6 +16,7 @@ import { useContext } from "react";
 import AuthContext from "./store/auth-context";
 import HomeContents from "./page/HomeContents";
 import Home from "./page/Home";
+import Chat from "./page/Component/Message/Chat";
 
 const App = () => {
   const ctx = useContext(AuthContext);
@@ -24,6 +25,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={ctx.isLoggedIn ? <Home /> : <Signin />} />
         <Route path="/signin" element={<Signin />} />
+        <Route path="/chat" element={(props) => <Message {...props} />} />
         {/* <Route path="/about" element={<About />} />
         <Route path="/companies" element={<Companies />} />
         <Route path="/companies/profile" element={<Companyprofile />} />
