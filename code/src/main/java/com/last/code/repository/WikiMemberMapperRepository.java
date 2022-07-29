@@ -17,15 +17,15 @@ public interface WikiMemberMapperRepository {
     WikiMemberDTO wikiMemberDetail(int wiki_member_pno);
 
     // Insert
-    @Insert("INSERT INTO TBL_WIKI_MEMBER(WIKI_MEMBER_PNO, WIKI_MEMBER_WIKI_FNO, WIKI_MEMBER_USER_FNO, WIKI_MEMBER_CONTENT) VALUES(seq_wiki_member.nextval, #{WIKI_MEMBER_WIKI_FNO}, #{WIKI_MEMBER_USER_FNO}, #{WIKI_MEMBER_CONTENT})")
+    @Insert("insert into tbl_wiki_member(wiki_member_pno, wiki_member_wiki_fno, wiki_member_user_fno, wiki_member_content) values(seq_wiki_member.nextval, #{wiki_member_wiki_fno}, #{wiki_member_user_fno}, #{wiki_member_content})")
 int wikiMemberInsert(WikiMemberDTO dto);
 
 // Update
-@Update("UPDATE TBL_WIKI_MEMBER SET WIKI_MEMBER_CONTENT = #{WIKI_MEMBER_CONTENT} WHERE WIKI_MEMBER_PNO = #{WIKI_MEMBER_PNO}")
+@Update("update tbl_wiki_member set wiki_member_content = #{wiki_member_content} where wiki_member_pno = #{wiki_member_pno}")
     int wikiMemberUpdate(WikiMemberDTO dto);
 
 // Delete
-    @Delete("DELETE FROM TBL_WIKI_MEMBER WHERE WIKI_MEMBER_PNO = #{WIKI_MEMBER_PNO}")
+    @Delete("delete from tbl_wiki_member where wiki_member_pno = #{wiki_member_pno}")
 int wikiMemberDelete(int wiki_member_pno);
 
 }

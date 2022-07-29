@@ -30,8 +30,8 @@ return service.wikiDetail(wiki_pno);
 
     // Insert
     @PostMapping("/insert")
-public int wikiInsert(@RequestBody WikiDTO dto) {
-return service.wikiInsert(dto);
+    public int wikiInsert(@RequestBody WikiDTO dto) {
+        return service.wikiInsert(dto);
     } // wikiInsert
 
     // Update
