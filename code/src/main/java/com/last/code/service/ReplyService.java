@@ -1,7 +1,32 @@
 package com.last.code.service;
 
+import com.last.code.model.ReplyDTO;
+import com.last.code.repository.ReplyMapperRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class ReplyService {
+
+    @Autowired
+    private ReplyMapperRepository repository;
+
+    public List<ReplyDTO> replyList(int reply_feed_fno) {
+        return repository.replyList(reply_feed_fno);
+    }
+
+    public int writeReply(ReplyDTO dto) {
+        return repository.writeReply(dto);
+    }
+
+    public int updateReply(ReplyDTO dto) {
+        return repository.updateReply(dto);
+    }
+
+    public int deleteReply(int reply_pno) {
+        return repository.deleteReply(reply_pno);
+    }
+
 }

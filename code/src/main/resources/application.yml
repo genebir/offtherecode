@@ -1,0 +1,8 @@
+
+mybatis:
+  mapper-location: mapper/*.xml
+
+spring:
+  servlet:
+    multipart:
+      max-file-size: 20MB  #최대 파일 사이즈를 20MB로 지정
