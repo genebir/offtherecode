@@ -956,11 +956,6 @@ const Projects = () => (
           </div>
         </div>
       </main>
-      <footer>
-        <div className="footy-sec mn no-margin">
-          <Footer />
-        </div>
-      </footer>
     </div>
     {/*theme-layout end*/}
   </>

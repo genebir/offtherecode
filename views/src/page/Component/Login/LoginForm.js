@@ -4,23 +4,32 @@ import AuthContext from "../../../store/auth-context";
 import ErrorModal from "../../Layout/ErrorModal";
 
 const LoginForm = (props) => {
+  const [token, setToken] = useState();
   const authCtx = useContext(AuthContext);
   const [error, setError] = useState(false);
   const history = useNavigate();
   const inputUserName = useRef();
   const inputPassword = useRef();
 
-  const loginHandler = (loginData) => {
+  const loginHandler = async (loginData) => {
     //로그인 데이터 전송 함수
-    fetch("http://localhost:8888/otc/signin", {
-      method: "POST",
-      body: JSON.stringify(loginData),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
-      .then((response) => console.log(response))
-      .then();
+
+    try {
+      await fetch("http://localhost:8888/user/signin", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(loginData),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data.token);
+          authCtx.onLogin(loginData.user_email, data.token, data.user_nick);
+        });
+    } catch {
+      setError(true);
+    }
   };
 
   const onSubmitHandler = (event) => {
@@ -35,12 +44,12 @@ const LoginForm = (props) => {
     }
 
     const LoginJsonData = {
-      userEmail: enterUserName,
-      userPassword: enterPassword,
+      user_email: enterUserName,
+      user_pw: enterPassword,
     };
     try {
       loginHandler(LoginJsonData);
-      authCtx.onLogin(enterUserName, enterPassword);
+
       history("/");
     } catch (err) {
       setError(true);

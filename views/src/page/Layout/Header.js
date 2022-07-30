@@ -19,14 +19,20 @@ const Header = (props) => {
   const [isMenuBtn, setIsMenuBtn] = useState(false);
   function messagebanner() {
     setIsMessage((event) => !event);
+    setIsUser(false);
+    setIsNotification(false);
   }
 
   const NotificationHandler = () => {
     setIsNotification((event) => !event);
+    setIsMessage(false);
+    setIsUser(false);
   };
 
   const userhandler = () => {
     setIsUser((event) => !event);
+    setIsMessage(false);
+    setIsNotification(false);
   };
 
   const menubtnHandler = () => {

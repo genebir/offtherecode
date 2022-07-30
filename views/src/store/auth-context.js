@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 const AuthContext = React.createContext({
   isLoggedIn: false,
   onLogout: () => {},
-  onLogin: (email, password) => {},
+  onLogin: (email, token) => {},
 });
 
 export const AuthContextProvider = (props) => {
@@ -19,13 +19,15 @@ export const AuthContextProvider = (props) => {
 
   const logoutHandler = () => {
     localStorage.clear();
+    sessionStorage.clear();
     setIsLoggedIn(false);
   };
 
-  const loginHandler = (email, password) => {
+  const loginHandler = (email, token, nick) => {
     localStorage.setItem("isLoggedIn", "1");
-    localStorage.setItem("Email", email);
-    localStorage.setItem("Password", password);
+    sessionStorage.setItem("Email", email);
+    localStorage.setItem("token", token);
+    sessionStorage.setItem("nick", nick);
     setIsLoggedIn(true);
   };
 

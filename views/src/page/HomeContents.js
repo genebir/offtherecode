@@ -62,7 +62,7 @@ const HomeContents = (props) => {
                         </div>
                         {/*username-dt end*/}
                         <div className="user-specs">
-                          <h3>John Doe</h3>
+                          <h3>{sessionStorage.getItem("nick")}</h3>
                           <span>Graphic Designer at Self Employed</span>
                         </div>
                       </div>

@@ -42,6 +42,7 @@ const ChangePassword = () => {
       (newPassword !== "" || checkNewPassword !== "")
     ) {
       const PasswordJsonData = {
+        token: sessionStorage.getItem("token"),
         currentPassword: currentPassword,
         newPassword: newPassword,
       };

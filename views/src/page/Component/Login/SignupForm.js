@@ -11,7 +11,6 @@ const SignupForm = (props) => {
   let inputPassword = useRef();
   let inputPasswordCheck = useRef();
   let inputNickname = useRef();
-  let inputPhoneNumber = useRef();
 
   const checkboxHandler = () => {
     // 체크박스 토글기능
@@ -28,7 +27,7 @@ const SignupForm = (props) => {
   const addSignupHandler = (SignupJsonData) => {
     //데이터 전송 함수
     try {
-      fetch("http://localhost:8888/otc/signup", {
+      fetch("http://localhost:8888/otc/mem/join", {
         // localhost:3000/
         method: "POST",
         headers: {
@@ -51,13 +50,11 @@ const SignupForm = (props) => {
     const enterPassword = inputPassword.current.value;
     const enterPasswordCheck = inputPasswordCheck.current.value.toString();
     const enterNickname = inputNickname.current.value.toString();
-    const enterPhoneNumber = inputPhoneNumber.current.value.toString();
 
     const SignupJsonData = {
-      userEmail: enterEmail,
-      userPassword: enterPassword,
-      userNick: enterNickname,
-      userPhone: enterPhoneNumber,
+      user_email: enterEmail,
+      user_pw: enterPassword,
+      user_nick: enterNickname,
     };
 
     // console.log(SignupJsonData);
@@ -71,10 +68,7 @@ const SignupForm = (props) => {
 
     if (
       enterPassword === enterPasswordCheck &&
-      (enterEmail !== "" ||
-        enterPassword !== "" ||
-        enterNickname !== "" ||
-        enterPhoneNumber !== "")
+      (enterEmail !== "" || enterPassword !== "" || enterNickname !== "")
     ) {
       setError(false);
       try {
@@ -127,13 +121,13 @@ const SignupForm = (props) => {
               </div>
               <div className="col-lg-12 no-pdd">
                 <div className="sn-field">
-                  <input
+                  {/* <input
                     type="text"
                     name="Phone"
                     placeholder="Phone Number"
-                    ref={inputPhoneNumber}
+                    // ref={inputPhoneNumber}
                     maxLength="13"
-                  />
+                  /> */}
                   <i className="la la-globe" />
                 </div>
               </div>

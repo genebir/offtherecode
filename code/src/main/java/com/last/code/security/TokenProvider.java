@@ -18,11 +18,11 @@ import java.util.Date;
 @Slf4j
 @Service
 public class TokenProvider {
-
+// 토큰 만들어주는 애
     private static final Key key = Keys.hmacShaKeyFor("오프더레코드최고의프로젝트입니다모두모두화이팅".getBytes(StandardCharsets.UTF_8));
 
     public String create(UserDTO dto) {
-        Date expiryDate = Date.from(
+        Date expiryDate = Date.from( // 만료시간 설정
                 Instant.now().plus(1, ChronoUnit.DAYS)
         );
 
@@ -48,7 +48,7 @@ public class TokenProvider {
 
             subj = claims.getSubject();
         } catch (Exception e) {
-            subj = "니애미";
+            subj = "위조 토큰";
         }
 
         return subj;

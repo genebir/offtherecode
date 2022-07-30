@@ -5,6 +5,7 @@ import com.last.code.service.FeedService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -25,7 +26,7 @@ public class FeedController {
     private FeedService service;
 
     @PostMapping("/insert")
-    int insert(@RequestBody FeedDTO dto, MultipartFile[] files) {
+    int insert(@RequestBody FeedDTO dto, MultipartFile[] files, @AuthenticationPrincipal String feed_user_fno) {
 //        String filePath = "C:\\code_photo\\feed_photo"; // 파일 저장 경로
 //        List<String> fileList = new ArrayList<String>();
 //        for(int i=0; i<files.length; i++) {
@@ -44,6 +45,10 @@ public class FeedController {
 //            }
 //        }
 //        dto.setFeed_file(fileList.toString());
+        // start of JWT
+        dto.setFeed_user_fno(0);
+        dto.setFeed_user_fno(Integer.parseInt(feed_user_fno));
+        log.info(dto.toString());
         return   service.writeFeed(dto);
     }
 
