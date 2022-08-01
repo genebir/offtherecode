@@ -18,9 +18,8 @@ public class FeedService {
         return repository.writeFeed(dto);
     }
 
-    public HashMap<String, Object> detailFeed(int pno) {
-        // return repository.feedDetail(pno);
-        return repository.test(pno);
+    public FeedDTO detailFeed(int pno) {
+        return repository.feedDetail(pno);
     }
 
     public int deleteFeed(int pno) {

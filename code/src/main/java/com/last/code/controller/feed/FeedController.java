@@ -1,12 +1,11 @@
 package com.last.code.controller.feed;
 
 import com.last.code.model.feed.FeedDTO;
+import com.last.code.model.feed.FilesDTO;
 import com.last.code.model.feed.LikeDTO;
-import com.last.code.service.feed.FeedService;
-import com.last.code.service.feed.LikeService;
+import com.last.code.service.feed.*;
 import com.last.code.service.user.UserService;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.annotations.ResultMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -24,12 +23,16 @@ public class FeedController {
 
     @Autowired
     private FeedService feedService;
-
     @Autowired
     private LikeService likeService;
-
     @Autowired
     private UserService userService;
+    @Autowired
+    private ReplyService replyService;
+    @Autowired
+    private FilesService filesService;
+    @Autowired
+    private HashtagService hashtagService;
 
     @PostMapping("/insert")
     int insert(@RequestBody FeedDTO dto, MultipartFile[] files, @AuthenticationPrincipal String feed_user_fno) {
@@ -59,10 +62,15 @@ public class FeedController {
     }
 
     @GetMapping("/detail")
-    HashMap<String, Object> detail(@RequestParam("feed_pno") int pno) {
-        HashMap<String, Object> detailData = feedService.detailFeed(pno);
-        log.info(detailData.toString());
-        return detailData;
+    FeedDTO detail(@RequestParam("feed_pno") int pno) {
+        FeedDTO dto = feedService.detailFeed(pno);
+        dto.setFiles(filesService.files(pno));
+        dto.setHashtags(hashtagService.tags(pno));
+        dto.setLikes(likeService.likeList(pno));
+        dto.setReply(replyService.replyList(pno));
+
+        log.info(dto.toString());
+        return dto;
     }
 
 
