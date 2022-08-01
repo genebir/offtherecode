@@ -1,11 +1,9 @@
 import { useEffect, useReducer } from "react";
 import UserFeed from "./Component/Userprofile/UserFeed";
-import Footer from "./Layout/Footer";
-import Header from "./Layout/Header";
 
 const Userprofile = () => {
   const DUMMY_DATA = [
-    { userprofile: "userprofile data" },
+    { userprofile: [{ userprofile1: "something profile" }] },
     { userfeeddata: "userfeeddata" },
     { userwikidata: "userwikidata" },
     { userinfo: "userinfo" },
@@ -251,7 +249,9 @@ const Userprofile = () => {
                       <div className="user-tab-sec">
                         <h3>{DUMMY_DATA[4].username}</h3>
                         <div className="star-descp">
-                          <span>Graphic Designer at Self Employed</span>
+                          <span>
+                            {DUMMY_DATA[0].userprofile[0].userprofile1}
+                          </span>
                           <ul>
                             <li>
                               <i className="fa fa-star" />

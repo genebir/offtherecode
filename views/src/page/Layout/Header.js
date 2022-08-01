@@ -1,15 +1,7 @@
 import { Fragment, useEffect, useReducer, useState } from "react";
-import { Link } from "react-router-dom";
-import Home from "../HomeContents";
-import Companies from "../Companies";
 import HeaderMessage from "./HeaderMessage";
 import HeaderNotification from "./HeaderNotification";
 import HeaderUser from "./HeaderUser";
-import Projects from "../Projects";
-import Profile from "../Profile";
-import Jobs from "../Jobs";
-import Message from "../Message";
-import ErrorModal from "./ErrorModal";
 // usereducer로 화면전환 그래프 화상채팅
 
 const Header = (props) => {
@@ -64,7 +56,10 @@ const Header = (props) => {
             </form>
           </div>
           {/*search-bar end*/}
-          <nav className={isMenuBtn ? "active" : null}>
+          <nav
+            className={isMenuBtn ? "active" : null}
+            style={{ textAlign: "center" }}
+          >
             <ul>
               <li onClick={props.closeFooterContent}>
                 <a href="#!" onClick={props.home}>
@@ -78,7 +73,7 @@ const Header = (props) => {
                 </a>
               </li>
               <Fragment>
-                <li onClick={props.closeFooterContent}>
+                {/* <li onClick={props.closeFooterContent}>
                   <a href="#!" title="" onClick={props.companies}>
                     <span>
                       <img
@@ -98,7 +93,7 @@ const Header = (props) => {
                       <a href="#!">Company Profile</a>
                     </li>
                   </ul>
-                </li>
+                </li> */}
                 <li onClick={props.openforum}>
                   <a href="#!" onClick={props.forum}>
                     <span>
@@ -133,7 +128,7 @@ const Header = (props) => {
                     </li>
                   </ul>
                 </li>
-                <li onClick={props.closeFooterContent}>
+                {/* <li onClick={props.closeFooterContent}>
                   <a href="#!" onClick={props.jobs}>
                     <span>
                       <img
@@ -143,7 +138,7 @@ const Header = (props) => {
                     </span>
                     Jobs
                   </a>
-                </li>
+                </li> */}
                 <li onClick={props.closeFooterContent}>
                   <a
                     href="#!"
@@ -168,7 +163,7 @@ const Header = (props) => {
                   )}
                   {/*notification-box end*/}
                 </li>
-                <li onClick={props.closeFooterContent}>
+                {/* <li onClick={props.closeFooterContent}>
                   <a
                     href="#!"
                     title=""
@@ -188,7 +183,7 @@ const Header = (props) => {
                       closeFooterContent={props.closeFooterContent}
                     />
                   )}
-                </li>
+                </li> */}
               </Fragment>
             </ul>
           </nav>

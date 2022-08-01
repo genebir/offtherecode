@@ -4,7 +4,6 @@ import HomeContents from "./HomeContents";
 import Jobs from "./Jobs";
 import Header from "./Layout/Header";
 import Profile from "./Profile";
-import Projects from "./Projects";
 import Profilesetting from "./Profilesetting";
 import Helpcenter from "./Helpcenter";
 import About from "./About";
@@ -79,8 +78,6 @@ const Home = () => {
   const closeFooterContent = () => {
     setIsFooterContent(false);
     setIsContent(true);
-    footDispatch({ dispatch: "NOTHING" });
-    console.log(isContent);
   };
 
   const openFooterContent = () => {
@@ -92,6 +89,12 @@ const Home = () => {
     setIsFooterContent(true);
     setIsContent(false);
     forum();
+  };
+
+  const closeforum = () => {
+    setIsFooterContent(false);
+    setIsContent(true);
+    nothing();
   };
 
   const isprojhandler = () => {
@@ -235,6 +238,7 @@ const Home = () => {
             openFooterContent={openFooterContent}
             closeFooterContent={closeFooterContent}
             openforum={openforum}
+            closeforum={closeforum}
           />
         ) : null}
         {/* <HomeContents /> */}
@@ -259,6 +263,7 @@ const Home = () => {
                 home={home}
                 closeFooterContent={closeFooterContent}
                 forum={forum}
+                closeforum={closeforum}
               />
             )}
             {state === 4 && <Profile />}
@@ -294,7 +299,11 @@ const Home = () => {
               )}
               {footer === 2 && <About />}
               {footer === 3 && (
-                <Forum home={home} closeFooterContent={closeFooterContent} />
+                <Forum
+                  home={home}
+                  closeFooterContent={closeFooterContent}
+                  closeforum={closeforum}
+                />
               )}
             </div>
           )}

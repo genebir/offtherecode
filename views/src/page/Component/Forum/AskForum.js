@@ -3,10 +3,13 @@ import { useState } from "react";
 const AskForum = (props) => {
   const submitHandler = () => {};
   const [codeList, setCodeList] = useState([]);
+  const [enteredCode, setEnteredCode] = useState("");
 
-  const EnteredKey = (e) => {
-    if (e.keyCode === 32) {
-      return "    ";
+  const EnteredKey = (evt) => {
+    // tab누르면 4칸 띄우기 기능이 안먹힌다.
+    var code = evt.which ? evt.which : evt.keyCode;
+    if (code === 9) {
+      setEnteredCode("   ");
     }
   };
 
@@ -17,6 +20,8 @@ const AskForum = (props) => {
           placeholder="코드 첨부"
           defaultValue={""}
           style={{ zIndex: "1" }}
+          value={enteredCode}
+          onChange={(e) => setEnteredCode(e.currentTarget.value)}
           onKeyDown={EnteredKey}
         ></textarea>
         <i
@@ -52,18 +57,28 @@ const AskForum = (props) => {
             <input type="text" name="question" placeholder="Title" />
             <input type="text" name="tags" placeholder="Tags" />
             <textarea placeholder="질문" defaultValue={""} />
-            <textarea placeholder="코드 첨부" defaultValue={""} />
+            <textarea
+              placeholder="코드 첨부"
+              defaultValue={""}
+              onChange={(e) => setEnteredCode(e.currentTarget.value)}
+              onKeyDown={EnteredKey}
+            />
             {codeList}
-            <button type="submit" className="save">
+            <button type="submit" className="save" tabIndex="-1">
               Submit
             </button>
-            <button className="cancel" onClick={props.postHandler}>
+            <button
+              className="cancel"
+              onClick={props.postHandler}
+              tabIndex="-1"
+            >
               Cancel
             </button>
             <button
               type="button"
               style={{ background: "#b3a2b8", color: "white" }}
               onClick={addList}
+              tabIndex="-1"
             >
               Import
             </button>

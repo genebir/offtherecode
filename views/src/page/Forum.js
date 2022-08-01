@@ -1,10 +1,9 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import AuthContext from "../store/auth-context";
 import AskForum from "./Component/Forum/AskForum";
 import ForumBoard from "./Component/Forum/ForumBoard";
 import Pagination from "./Component/Forum/Pagination";
-import Footer from "./Layout/Footer";
 
 const Forum = (props) => {
   const authCtx = useContext(AuthContext);
@@ -37,7 +36,9 @@ const Forum = (props) => {
     },
   ]);
   const DUMMY_DATA = [];
+
   const AddData = () => {
+    //계속 재계산을 해버리는데 최적화를 위해서는 대책이 필요하다
     for (var i = 0; i < 50; i++) {
       DUMMY_DATA.push({
         title: i,
@@ -46,6 +47,7 @@ const Forum = (props) => {
     return DUMMY_DATA;
   };
   AddData();
+
   console.log(DUMMY_DATA);
 
   const PostHandler = () => {
@@ -142,8 +144,8 @@ const Forum = (props) => {
         <header>
           <div className="container">
             <div className="header-data">
-              <div className="logo pd-btm" onClick={props.closeFooterContent}>
-                <a href="#!" title="" onClick={props.home}>
+              <div className="logo pd-btm" onClick={props.closeforum}>
+                <a href="#!" title="">
                   <img src="images/logo.png" alt="" />
                 </a>
               </div>
