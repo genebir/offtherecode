@@ -1,7 +1,7 @@
-package com.last.code.controller;
+package com.last.code.controller.feed;
 
-import com.last.code.model.ReplyDTO;
-import com.last.code.service.ReplyService;
+import com.last.code.model.feed.ReplyDTO;
+import com.last.code.service.feed.ReplyService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

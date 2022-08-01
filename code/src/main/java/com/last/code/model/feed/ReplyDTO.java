@@ -1,4 +1,4 @@
-package com.last.code.model;
+package com.last.code.model.feed;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

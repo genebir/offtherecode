@@ -1,11 +1,10 @@
-package com.last.code.controller;
+package com.last.code.controller.user;
 
-import com.last.code.model.UserDTO;
+import com.last.code.model.user.UserDTO;
 import com.last.code.security.TokenProvider;
-import com.last.code.service.UserService;
+import com.last.code.service.user.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -20,16 +19,17 @@ public class UserController {
 
     @PostMapping("/signin")
     UserDTO signIn(@RequestBody UserDTO dto) {
-        UserDTO responseUserDTO = null;
+        UserDTO responseUserDTO = new UserDTO();
         UserDTO userDTO = userService.signIn(dto);
         if(userDTO == null) {
             log.info("error");
+            responseUserDTO.setToken("1"); // email이 일치하지 않으면 token key에 1을 넣어 response
         }
         if(userDTO != null) {
             log.info(userService.signIn(dto).toString());
             log.info(dto.toString());
             if(!userDTO.getUser_pw().equals(dto.getUser_pw())) {
-              //  result = "비밀번호가 일치하지 않습니다.";
+              responseUserDTO.setToken("2"); // pw가 일치하지 않으면 token key에 2을 넣어 response
             }else if(userDTO.getUser_pw().equals(dto.getUser_pw())) {
                 final String token = tokenProvider.create(userDTO);
                 responseUserDTO = UserDTO.builder()

@@ -1,6 +1,6 @@
 package com.last.code.security;
 
-import com.last.code.model.UserDTO;
+import com.last.code.model.user.UserDTO;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

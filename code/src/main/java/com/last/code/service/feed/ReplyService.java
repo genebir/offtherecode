@@ -1,7 +1,7 @@
-package com.last.code.service;
+package com.last.code.service.feed;
 
-import com.last.code.model.ReplyDTO;
-import com.last.code.repository.ReplyMapperRepository;
+import com.last.code.model.feed.ReplyDTO;
+import com.last.code.repository.feed.ReplyMapperRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

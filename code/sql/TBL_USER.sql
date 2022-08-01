@@ -1,17 +1,21 @@
-drop table TBL_USER CASCADE CONSTRAINTS ;
+DROP TABLE TBL_USER CASCADE CONSTRAINTS ;
 
 
 
-create table TBL_USER (
-	USER_PNO number(10) primary key,
-	USER_EMAIL varchar(200) unique not null,
-	USER_PW varchar(20) not null,
-	USER_NICK varchar(30) unique not null
+CREATE TABLE TBL_USER (
+	USER_PNO NUMBER(10) PRIMARY KEY,
+	USER_EMAIL VARCHAR(200) UNIQUE NOT NULL,
+	USER_PW VARCHAR(20) NOT NULL,
+	USER_NICK VARCHAR(30) UNIQUE NOT NULL
 );
 
-drop sequence seq_user;
+DROP SEQUENCE SEQ_USER;
 
-create sequence seq_user 
-	increment by 1 
-	start with 1;
+CREATE SEQUENCE SEQ_USER
+	INCREMENT BY 1
+	START WITH 1;
+
+INSERT INTO TBL_USER VALUES (SEQ_USER.nextval, 'TEST@TEST.COM', '1234', 'TEST NICKK');
+
+COMMIT
 	

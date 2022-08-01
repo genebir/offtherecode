@@ -7,4 +7,13 @@
 Mapper 예시
 <mapper namespace="com.icia.member.repository.MemberMapperRepository"></mapper>
 -->
-<mapper namespace="com.last.code.repository.UserMapperRepository"></mapper>
+
+<!--    private int feed_pno;
+    private String feed_content;
+    private int feed_user_fno;
+    private LocalDate feed_date;
+    private List<FilesDTO> files;
+    private List<LikeDTO> likes;
+    private List<ReplyDTO> reply;
+    private List<HashtagDTO> hashtags;
+-->

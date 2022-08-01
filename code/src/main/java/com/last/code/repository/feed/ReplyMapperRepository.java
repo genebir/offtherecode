@@ -1,6 +1,6 @@
-package com.last.code.repository;
+package com.last.code.repository.feed;
 
-import com.last.code.model.ReplyDTO;
+import com.last.code.model.feed.ReplyDTO;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
