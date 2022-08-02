@@ -10,6 +10,7 @@ const LoginForm = (props) => {
   const history = useNavigate();
   const inputUserName = useRef();
   const inputPassword = useRef();
+  const [errorType, setErrorType] = "";
 
   const loginHandler = async (loginData) => {
     //로그인 데이터 전송 함수
@@ -24,8 +25,15 @@ const LoginForm = (props) => {
       })
         .then((response) => response.json())
         .then((data) => {
-          console.log(data.token);
           authCtx.onLogin(loginData.user_email, data.token, data.user_nick);
+          if (data.token === 1) {
+            // 이메일 오류
+            setErrorType("이메일 오류");
+          } else if (data.token === 2) {
+            //비밀번호 오류
+            setErrorType("패스워드 오류");
+          }
+          authCtx.currenttoken(data.token);
         });
     } catch {
       setError(true);
@@ -107,7 +115,12 @@ const LoginForm = (props) => {
               <button type="submit" value="submit">
                 Sign in
               </button>
-              {error ? <ErrorModal onClose={() => setError(false)} /> : null}
+              {error ? (
+                <ErrorModal
+                  onClose={() => setError(false)}
+                  errorType={errorType}
+                />
+              ) : null}
             </div>
           </div>
         </form>

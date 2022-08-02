@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import Chat from "./Component/Message/jwt-social-login-client/src/chat/Chat";
 import LeftBanner from "./Component/Message/LeftBanner";
 import MessageForm from "./Component/Message/MeesageForm";
 import MessageFormBack from "./Component/Message/MeesageForm backup";
@@ -88,7 +89,7 @@ const MessageBack = () => {
   };
 
   const requestPost = async () => {
-    const response = await fetch("http://localhost:8888/", {
+    const response = await fetch("http://localhost:8888/chat", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -101,6 +102,17 @@ const MessageBack = () => {
       .then((data) => console.log(data));
     response();
   };
+
+  useEffect(() => {
+    // 메시지 초기 데이터 받아오기
+    fetch("", {
+      method: "GET",
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => console.log(data));
+  }, []);
 
   return (
     <>
@@ -205,10 +217,11 @@ const MessageBack = () => {
                         }}
                         dir="ltr"
                       >
-                        <MessageFormBack
+                        {/* <MessageFormBack
                           myMessageList={myMessageList}
                           userMessageList={userMessageList}
-                        />
+                        /> */}
+                        <Chat />
                       </div>
                     </div>
                     {/*main-message-box end*/}
@@ -223,7 +236,7 @@ const MessageBack = () => {
                           placeholder="Type a message here"
                           ref={inputmessage}
                         />
-                        <button type="submit" onClick={testGet}>
+                        <button type="submit" onClick={requestPost}>
                           Send
                         </button>
                       </div>

@@ -79,7 +79,7 @@ const PostJob = (props) => {
       }
     >
       <div className="post-project">
-        <h3>Post a job</h3>
+        <h3>피드 작성</h3>
         <div className="post-project-fields">
           <div style={{ margin: "auto" }}>
             <input

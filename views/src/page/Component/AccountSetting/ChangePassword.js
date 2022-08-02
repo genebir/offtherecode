@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import AuthContext from "../../../store/auth-context";
 import PassWordChangeErrorModal from "../../Layout/Modal/PassWordChangeErrorModal";
 import classees from "./ChangePassword.module.css";
 import FindPassword from "./FindPassword";
 
 const ChangePassword = () => {
+  const authCtx = useContext(AuthContext);
   const [IsError, setIsError] = useState(false);
   const [Isfind, setIsFind] = useState(false);
   const [currentPassword, setCurrentPassword] = useState();
@@ -31,7 +33,7 @@ const ChangePassword = () => {
       {
         method: "POST",
         body: JSON.stringify(passworddata),
-        headers: { "Content-Type": "application/json" },
+        headers: authCtx.currenttoken(localStorage.getItem("token")),
       }
     ).then((response) => console.log(response));
   };

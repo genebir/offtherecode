@@ -99,8 +99,8 @@ const Header = (props) => {
                     </li>
                   </ul>
                 </li>
-                <li onClick={props.closeFooterContent}>
-                  <a href="#!" onClick={props.projects}>
+                <li onClick={props.openforum}>
+                  <a href="#!" onClick={props.forum}>
                     <span>
                       <img
                         src={`${process.env.PUBLIC_URL}/images/icon3.png`}
@@ -122,7 +122,9 @@ const Header = (props) => {
                   </a>
                   <ul>
                     <li>
-                      <a href="#!">User Profile</a>
+                      <a href="#!" onClick={props.userprofile}>
+                        User Profile
+                      </a>
                     </li>
                     <li>
                       <a href="#!" onClick={props.myprofile}>

@@ -1,22 +1,10 @@
 import { Routes, Route } from "react-router-dom";
-import Companies from "./page/Companies";
-import Companyprofile from "./page/Company-profile";
-import Selfprofile from "./page/Selfprofile";
-import Userprofile from "./page/Userprofile";
-import Profile from "./page/Profile";
 import Message from "./page/Message";
-import About from "./page/About";
-import Jobs from "./page/Jobs";
-import Projects from "./page/Projects";
 import Signin from "./page/Signin";
-import Profilesetting from "./page/Profilesetting";
-import Forum from "./page/Forum";
-import Helpcenter from "./page/Helpcenter";
 import { useContext } from "react";
 import AuthContext from "./store/auth-context";
-import HomeContents from "./page/HomeContents";
+
 import Home from "./page/Home";
-import Chat from "./page/Component/Message/Chat";
 
 const App = () => {
   const ctx = useContext(AuthContext);

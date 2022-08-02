@@ -24,10 +24,10 @@ const SignupForm = (props) => {
     return setCheckbox;
   };
 
-  const addSignupHandler = (SignupJsonData) => {
+  const addSignupHandler = async (SignupJsonData) => {
     //데이터 전송 함수
     try {
-      fetch("http://localhost:8888/otc/mem/join", {
+      await fetch("http://localhost:8888/otc/mem/join", {
         // localhost:3000/
         method: "POST",
         headers: {
@@ -116,18 +116,6 @@ const SignupForm = (props) => {
                     placeholder="Nickname"
                     ref={inputNickname}
                   />
-                  <i className="la la-globe" />
-                </div>
-              </div>
-              <div className="col-lg-12 no-pdd">
-                <div className="sn-field">
-                  {/* <input
-                    type="text"
-                    name="Phone"
-                    placeholder="Phone Number"
-                    // ref={inputPhoneNumber}
-                    maxLength="13"
-                  /> */}
                   <i className="la la-globe" />
                 </div>
               </div>

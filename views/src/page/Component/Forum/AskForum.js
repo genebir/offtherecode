@@ -4,6 +4,12 @@ const AskForum = (props) => {
   const submitHandler = () => {};
   const [codeList, setCodeList] = useState([]);
 
+  const EnteredKey = (e) => {
+    if (e.keyCode === 32) {
+      return "    ";
+    }
+  };
+
   const addList = () => {
     const listForm = (
       <>
@@ -11,10 +17,12 @@ const AskForum = (props) => {
           placeholder="코드 첨부"
           defaultValue={""}
           style={{ zIndex: "1" }}
+          onKeyDown={EnteredKey}
         ></textarea>
         <i
           class="fa-solid fa-xmark-large"
           style={{
+            height: "20vh",
             margin: "0",
             padding: "0",
             border: "0",

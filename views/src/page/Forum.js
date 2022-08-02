@@ -1,13 +1,16 @@
-import { useContext, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import AuthContext from "../store/auth-context";
 import AskForum from "./Component/Forum/AskForum";
 import ForumBoard from "./Component/Forum/ForumBoard";
+import Pagination from "./Component/Forum/Pagination";
 import Footer from "./Layout/Footer";
 
 const Forum = (props) => {
   const authCtx = useContext(AuthContext);
   const searchref = useRef();
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage, setPostsPerPage] = useState(10);
   const [isPost, setIsPost] = useState(false);
   const [searchList, setSearchList] = useState([]);
   const [forumBoardList, setForumBoardList] = useState([
@@ -33,6 +36,17 @@ const Forum = (props) => {
       title: "7",
     },
   ]);
+  const DUMMY_DATA = [];
+  const AddData = () => {
+    for (var i = 0; i < 50; i++) {
+      DUMMY_DATA.push({
+        title: i,
+      });
+    }
+    return DUMMY_DATA;
+  };
+  AddData();
+  console.log(DUMMY_DATA);
 
   const PostHandler = () => {
     setIsPost((event) => !event);
@@ -47,6 +61,51 @@ const Forum = (props) => {
     );
 
     return setSearchList(searchfilter);
+  };
+
+  const ALLWIKI = [
+    { wikiwriter: "something writer" },
+    { wikicontent: "something content" },
+    { wikiwriteskill: "something write skill" },
+    { wikiwritedate: "something write date" },
+    { wikiaddwriter: "something add writer" },
+    { wikiaddwritedate: "something add write date" },
+    { wikiaddwritecontent: "something add write content" },
+  ];
+
+  const MYWIKI = [
+    { wikicontent: "something content" },
+    { wikiwritedate: "something write date" },
+    { wikiwriteskill: "something write skill" },
+    { wikiaddwriter: "something add writer" },
+    { wikiaddwritedate: "something add write date" },
+    { wikiaddwritecontent: "something add write content" },
+  ];
+
+  const NEWWIKI = [
+    { newwikicontent: "something new content" },
+    { newwikiskill: "something new skill" },
+    { newwikidate: "something new date" },
+    { newwikicode: "something new code" },
+  ];
+
+  useEffect(() => {
+    // 위키 초기 데이터 받아오기
+    fetch("", {
+      method: "GET",
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => console.log(data));
+  }, []);
+
+  const indexOfLast = currentPage * postsPerPage;
+  const indexOfFirst = indexOfLast - postsPerPage;
+  const currentPosts = (posts) => {
+    let currentPosts = 0;
+    currentPosts = posts.slice(indexOfFirst, indexOfLast);
+    return currentPosts;
   };
 
   return (
@@ -210,54 +269,13 @@ const Forum = (props) => {
                   <ForumBoard
                     boardlist={forumBoardList}
                     searchList={searchList}
+                    posts={currentPosts(DUMMY_DATA)}
                   />
-                  <nav
-                    aria-label="Page navigation example"
-                    className="full-pagi"
-                  >
-                    <ul className="pagination">
-                      <li className="page-item">
-                        <a className="page-link pvr" href="#">
-                          Previous
-                        </a>
-                      </li>
-                      <li className="page-item">
-                        <a className="page-link active" href="#">
-                          1
-                        </a>
-                      </li>
-                      <li className="page-item">
-                        <a className="page-link" href="#">
-                          2
-                        </a>
-                      </li>
-                      <li className="page-item">
-                        <a className="page-link" href="#">
-                          3
-                        </a>
-                      </li>
-                      <li className="page-item">
-                        <a className="page-link" href="#">
-                          4
-                        </a>
-                      </li>
-                      <li className="page-item">
-                        <a className="page-link" href="#">
-                          5
-                        </a>
-                      </li>
-                      <li className="page-item">
-                        <a className="page-link" href="#">
-                          6
-                        </a>
-                      </li>
-                      <li className="page-item">
-                        <a className="page-link pvr" href="#">
-                          Next
-                        </a>
-                      </li>
-                    </ul>
-                  </nav>
+                  <Pagination
+                    postsPerPage={postsPerPage}
+                    totalPosts={DUMMY_DATA.length}
+                    paginate={setCurrentPage}
+                  />
                 </div>
                 <div className="col-lg-4">
                   <div className="widget widget-user">
@@ -342,7 +360,7 @@ const Forum = (props) => {
         </section>
         {/*forum-page end*/}
 
-        <AskForum postHandler={PostHandler} isPost={isPost} />
+        <AskForum postHandler={PostHandler} isPost={isPost} NEWWIKI={NEWWIKI} />
         {/*overview-box end*/}
       </div>
       {/*theme-layout end*/}

@@ -8,7 +8,7 @@ const ErrorModal = React.memo((props) => {
       <div className="backdrop" />
       <div className="error-modal">
         <h2>An Error Occurred!</h2>
-        <p>입력이 잘못 되었습니다</p>
+        <p>{props.errorType}입니다.</p>
         <div
           className="error-modal__actions"
           style={{ marginBottom: "0.5rem" }}

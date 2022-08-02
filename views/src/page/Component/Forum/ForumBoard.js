@@ -2,7 +2,7 @@ const ForumBoard = (props) => {
   return (
     <div className="forum-questions">
       {props.searchList.length === 0
-        ? props.boardlist.map((item) => {
+        ? props.posts.map((item) => {
             return (
               <div className="usr-question">
                 <div className="usr_img">

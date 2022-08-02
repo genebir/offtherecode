@@ -1,19 +1,19 @@
-import { Fragment, useEffect, useReducer, useState } from "react";
+import { Fragment, useContext, useEffect, useReducer, useState } from "react";
 import Companies from "./Companies";
 import HomeContents from "./HomeContents";
 import Jobs from "./Jobs";
 import Header from "./Layout/Header";
 import Profile from "./Profile";
 import Projects from "./Projects";
-import Message from "./Message";
 import Profilesetting from "./Profilesetting";
-import ErrorModal from "./Layout/ErrorModal";
 import Helpcenter from "./Helpcenter";
 import About from "./About";
 import Forum from "./Forum";
 import Footer from "./Layout/Footer";
 import Selfprofile from "./Selfprofile";
 import MessageBack from "./Message backup";
+import Userprofile from "./Userprofile";
+import AuthContext from "../store/auth-context";
 
 const headerbanner = (states, action) => {
   switch (action.type) {
@@ -27,6 +27,8 @@ const headerbanner = (states, action) => {
       return (states = 4);
     case "MYPROFILE":
       return (states = 4.1);
+    case "USERPROFILE":
+      return (states = 4.2);
     case "JOBS":
       return (states = 5);
     case "MESSAGES":
@@ -54,6 +56,7 @@ const Footerbanner = (states, action) => {
 };
 
 const Home = () => {
+  const authCtx = useContext(AuthContext);
   const [state, dispatch] = useReducer(headerbanner, 1);
   const [footer, footDispatch] = useReducer(Footerbanner, 0);
 
@@ -61,6 +64,17 @@ const Home = () => {
   const [isProject, setIsProject] = useState(false);
   const [isContent, setIsContent] = useState(true);
   const [isFooterContent, setIsFooterContent] = useState(false);
+
+  useEffect(() => {
+    // HomeContents초기 데이터 받아오기
+    fetch("http://localhost:8888", {
+      method: "GET",
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => console.log(data));
+  }, []);
 
   const closeFooterContent = () => {
     setIsFooterContent(false);
@@ -72,6 +86,12 @@ const Home = () => {
   const openFooterContent = () => {
     setIsFooterContent(true);
     setIsContent(false);
+  };
+
+  const openforum = () => {
+    setIsFooterContent(true);
+    setIsContent(false);
+    forum();
   };
 
   const isprojhandler = () => {
@@ -133,6 +153,12 @@ const Home = () => {
   const myprofile = () => {
     dispatch({
       type: "MYPROFILE",
+    });
+  };
+
+  const userprofile = () => {
+    dispatch({
+      type: "USERPROFILE",
     });
   };
 
@@ -202,10 +228,13 @@ const Home = () => {
             projects={wiki}
             profiles={profiles}
             myprofile={myprofile}
+            userprofile={userprofile}
             jobs={jobs}
             messages={messages}
             settings={settings}
+            openFooterContent={openFooterContent}
             closeFooterContent={closeFooterContent}
+            openforum={openforum}
           />
         ) : null}
         {/* <HomeContents /> */}
@@ -218,15 +247,23 @@ const Home = () => {
                 isprojhandler={isprojhandler}
                 isjobhandler={isjobhandler}
                 helpcenter={helpcenter}
+                myprofile={myprofile}
                 forum={forum}
                 about={about}
                 openFooterContent={openFooterContent}
               />
             )}
             {state === 2 && <Companies />}
-            {state === 3 && <Projects />}
+            {state === 3 && (
+              <Forum
+                home={home}
+                closeFooterContent={closeFooterContent}
+                forum={forum}
+              />
+            )}
             {state === 4 && <Profile />}
             {state === 4.1 && <Selfprofile settings={settings} />}
+            {state === 4.2 && <Userprofile />}
             {state === 5 && <Jobs />}
             {state === 6 && <MessageBack />}
             {state === 7 && <Profilesetting />}
@@ -236,6 +273,13 @@ const Home = () => {
         <footer>
           {isFooterContent && (
             <div>
+              {/* {state === 3 && (
+                <Forum
+                  home={home}
+                  closeFooterContent={closeFooterContent}
+                  forum={forum}
+                />
+              )} */}
               {footer === 1 && (
                 <Helpcenter
                   home={home}
