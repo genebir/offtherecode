@@ -15,6 +15,7 @@ public class FeedService {
     private FeedMapperRepository repository;
 
     public int writeFeed(FeedDTO dto) {
+
         return repository.writeFeed(dto);
     }
 

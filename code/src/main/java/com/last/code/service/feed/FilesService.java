@@ -13,6 +13,9 @@ public class FilesService {
     @Autowired
     private FilesMapperRepository filesMapperRepository;
 
+    public void test(FilesDTO dto) {
+        filesMapperRepository.addFiles(dto);
+    }
     public void insertFiles(List<FilesDTO> fileList) {
         for(FilesDTO dto : fileList) {
             filesMapperRepository.addFiles(dto);

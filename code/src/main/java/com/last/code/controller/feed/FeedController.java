@@ -3,6 +3,7 @@ package com.last.code.controller.feed;
 import com.last.code.model.feed.FeedDTO;
 import com.last.code.model.feed.FilesDTO;
 import com.last.code.model.feed.LikeDTO;
+import com.last.code.model.feed.ReplyDTO;
 import com.last.code.service.feed.*;
 import com.last.code.service.user.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -11,9 +12,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.io.File;
+import java.util.*;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -36,24 +36,26 @@ public class FeedController {
 
     @PostMapping("/insert")
     int insert(@RequestBody FeedDTO dto, MultipartFile[] files, @AuthenticationPrincipal String feed_user_fno) {
-//        String filePath = "C:\\code_photo\\feed_photo"; // 파일 저장 경로
-//        List<String> fileList = new ArrayList<String>();
-//        for(int i=0; i<files.length; i++) {
-//            MultipartFile file = files[i];
-//
-//            String fileId = (new Date().getTime() + "" + (new Random().ints(1000, 9999).findAny().getAsInt()));
-//            String originName = file.getOriginalFilename();
-//            String fileExtension = originName.substring(originName.lastIndexOf(",") + 1);
-//            long fileSize = file.getSize();
-//
-//            File fileSave = new File(filePath, fileId + "." + fileExtension);
-//            fileList.add(fileSave.toString());
-//            if(!fileSave.exists()) {
-//                // 저장 경로 폴더 없을 시 생성
-//                fileSave.mkdirs();
-//            }
-//        }
-//        dto.setFeed_file(fileList.toString());
+        String filePath = "C:\\code_photo\\feed_photo"; // 파일 저장 경로
+        List<FilesDTO> fileList = new ArrayList<FilesDTO>();
+        for(int i=0; i<files.length; i++) {
+            MultipartFile file = files[i];
+
+            String fileId = (new Date().getTime() + "" + (new Random().ints(1000, 9999).findAny().getAsInt()));
+            String originName = file.getOriginalFilename();
+            String fileExtension = originName.substring(originName.lastIndexOf(",") + 1);
+            long fileSize = file.getSize();
+
+            File fileSave = new File(filePath, fileId + "." + fileExtension);
+            fileList.add(FilesDTO.builder()
+                    .files_file(fileSave.toString())
+                    .build());
+            if(!fileSave.exists()) {
+                // 저장 경로 폴더 없을 시 생성
+                fileSave.mkdirs();
+            }
+
+        }
         // start of JWT
         dto.setFeed_user_fno(0);
         dto.setFeed_user_fno(Integer.parseInt(feed_user_fno));
@@ -61,13 +63,31 @@ public class FeedController {
         return  feedService.writeFeed(dto);
     }
 
+    @PostMapping("/test")
+        public int test(@RequestBody FeedDTO dto) {
+            return feedService.writeFeed(dto);
+
+    }
+
     @GetMapping("/detail")
     FeedDTO detail(@RequestParam("feed_pno") int pno) {
         FeedDTO dto = feedService.detailFeed(pno);
         dto.setFiles(filesService.files(pno));
         dto.setHashtags(hashtagService.tags(pno));
-        dto.setLikes(likeService.likeList(pno));
+
+        List<LikeDTO> likeList = likeService.likeList(pno);
+        for (LikeDTO likeDTO : likeList) {
+            likeDTO.setLike_user_nick(userService.selectUserNick(likeDTO.getLike_user_fno()));
+        }
+        dto.setLikes(likeList);
+
+        List<ReplyDTO> replyList = replyService.replyList(pno);
+        for (ReplyDTO replyDTO : replyList) {
+            replyDTO.setReply_user_nick(userService.selectUserNick(replyDTO.getReply_user_fno()));
+        }
         dto.setReply(replyService.replyList(pno));
+
+        dto.setFeed_user_nick(userService.selectUserNick(dto.getFeed_user_fno()));
 
         log.info(dto.toString());
         return dto;

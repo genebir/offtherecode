@@ -13,5 +13,6 @@ public class LikeDTO {
 
     private int like_feed_fno;
     private  int like_user_fno;
+    private String like_user_nick;
 
 }
