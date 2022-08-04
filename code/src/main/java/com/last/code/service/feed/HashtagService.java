@@ -16,7 +16,7 @@ public class HashtagService {
     public void updateHashtags(List<HashtagDTO> tagList) {
         int del = hashtagMapperRepository.deleteTag(tagList.get(0).getHashtag_feed_fno());
 
-        if(del > 0) {
+        if(del >= 0) {
             for(HashtagDTO dto : tagList) {
                 hashtagMapperRepository.writeTag(dto);
             }
@@ -28,6 +28,7 @@ public class HashtagService {
             hashtagMapperRepository.writeTag(dto);
         }
     }
+
 
     public List<HashtagDTO> tags (int hashtag_feed_pno) {
         return hashtagMapperRepository.tagList(hashtag_feed_pno);

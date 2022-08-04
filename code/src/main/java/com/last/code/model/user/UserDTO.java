@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -16,5 +18,8 @@ public class UserDTO {
     private String user_pw;
     private String user_nick;
     private String token;
+    private List<String> followers;
+    private List<String> follwings;
+    UserInfoDTO userInfo;
 
 }

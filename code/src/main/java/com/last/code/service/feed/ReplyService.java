@@ -5,6 +5,7 @@ import com.last.code.repository.feed.ReplyMapperRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -29,4 +30,9 @@ public class ReplyService {
         return repository.deleteReply(reply_pno);
     }
 
+    public List<Integer> selectFeedFnoByUserFno(int reply_user_fno) {
+        List<Integer> feedFnos = repository.selectFeedFnoByUserFno(reply_user_fno);
+        Collections.sort(feedFnos, Collections.reverseOrder());
+        return feedFnos;
+    }
 }

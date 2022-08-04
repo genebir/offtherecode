@@ -17,20 +17,48 @@ public class UserService {
         return userMapperRepository.signIn(dto.getUser_email());
     }
 
-    public String signUp(UserDTO dto) {
-        int cnt = userMapperRepository.signUp(dto);
-        String flag = "false";
+    public UserDTO userDetail(int user_pno) {
+        return userMapperRepository.userDetail(user_pno);
+    }
 
+    public void signUp(UserDTO dto) {
+        int cnt = userMapperRepository.signUp(dto);
+        String flag = "회원가입 실패";
+
+        log.info(cnt + "");
         if(cnt > 0) {
-            flag = "signUp >>>>>>>>>>>>>>>>>>>>>>>";
+            flag = "회원가입 완료";
         }
-        return flag;
+        log.info(flag);
     }
 
     public String selectUserNick(int user_pno) {
         UserDTO dto = userMapperRepository.userDetail(user_pno);
         String userNick = dto.getUser_nick();
         return userNick;
+    }
+
+    public UserDTO selectByNick(String user_nick) {
+        return userMapperRepository.selectByNick(user_nick);
+    }
+
+    public void updatePw(UserDTO dto) {
+        int cnt = userMapperRepository.updatePw(dto);
+
+        if(cnt > 0){
+            log.info("수정 완료");
+        } else {
+            log.info("수정 오류");
+        }
+    }
+
+    public void deleteUser(int user_pno) {
+        int cnt = userMapperRepository.deleteUser(user_pno);
+        if(cnt>0) {
+            log.info("탈퇴 완료");
+        } else {
+            log.info("탈퇴 오류 발생");
+        }
     }
 
 }

@@ -11,7 +11,7 @@ public interface FilesMapperRepository {
 //    private String files_file;
 
 
-    @Insert("insert into tbl_files values(#{feedno}, #{files_file})")
+    @Insert("insert into tbl_files values(#{files_feed_fno}, #{files_file})")
     int addFiles(FilesDTO dto);
 
     @Select("select * from tbl_files where files_feed_fno = #{files_feed_fno}")

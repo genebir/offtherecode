@@ -1,18 +1,19 @@
 package com.last.code.controller.feed;
 
-import com.last.code.model.feed.FeedDTO;
-import com.last.code.model.feed.FilesDTO;
-import com.last.code.model.feed.LikeDTO;
-import com.last.code.model.feed.ReplyDTO;
+import com.last.code.model.feed.*;
+import com.last.code.model.user.FollowDTO;
 import com.last.code.service.feed.*;
+import com.last.code.service.user.FollowService;
 import com.last.code.service.user.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.*;
 
 @CrossOrigin(origins = "*")
@@ -30,69 +31,92 @@ public class FeedController {
     @Autowired
     private ReplyService replyService;
     @Autowired
-    private FilesService filesService;
-    @Autowired
     private HashtagService hashtagService;
+    @Autowired
+    private FollowService followService;
 
-    @PostMapping("/insert")
-    int insert(@RequestBody FeedDTO dto, MultipartFile[] files, @AuthenticationPrincipal String feed_user_fno) {
-        String filePath = "C:\\code_photo\\feed_photo"; // 파일 저장 경로
-        List<FilesDTO> fileList = new ArrayList<FilesDTO>();
-        for(int i=0; i<files.length; i++) {
-            MultipartFile file = files[i];
 
-            String fileId = (new Date().getTime() + "" + (new Random().ints(1000, 9999).findAny().getAsInt()));
-            String originName = file.getOriginalFilename();
-            String fileExtension = originName.substring(originName.lastIndexOf(",") + 1);
-            long fileSize = file.getSize();
+    @PostMapping("/testfile")
+    void testfile(@RequestParam("file") MultipartFile file) {
+        String UPLOAD_PATH = "C:\\code_photo\\feed_photo" + new Date().getTime(); // 업로드 할 위치 // 현재 날짜 값 폴더
+        log.info(file.toString());
 
-            File fileSave = new File(filePath, fileId + "." + fileExtension);
-            fileList.add(FilesDTO.builder()
-                    .files_file(fileSave.toString())
-                    .build());
-            if(!fileSave.exists()) {
-                // 저장 경로 폴더 없을 시 생성
-                fileSave.mkdirs();
-            }
+        String originName = file.getOriginalFilename(); // 파일.type
+        String[] tempStr = originName.split("\\.");
+        originName = tempStr[0];
+        String type = tempStr[1];
 
+        File fileSave = new File(UPLOAD_PATH, originName + "." + type); // 경로/파일.type
+
+        if (!fileSave.exists()) { // 폴더가 없을 경우 폴더 만들기
+            fileSave.mkdirs();
         }
-        // start of JWT
-        dto.setFeed_user_fno(0);
+
+        try {
+            file.transferTo(fileSave);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        // transferTo(File file) > multipartFile을 주어진 file의 경로로 이동
+
+    }
+    @PostMapping("/insert") // 피드 작성
+    void insert(@RequestParam("feed_content") String feed_content,
+               @RequestParam("feed_hashtag") String hashtag,
+               @RequestParam("feed_file") MultipartFile file,
+               @AuthenticationPrincipal String feed_user_fno) {
+
+        String UPLOAD_PATH = "C:\\code_photo\\feed_photo" + new Date().getTime(); // 업로드 할 위치 // 현재 날짜 값 폴더
+
+        int fileFlag = 0;
+        String originName = file.getOriginalFilename(); // 파일.type
+        String[] tempStr = originName.split("\\.");
+        originName = tempStr[0];
+        String type = tempStr[1];
+
+        File fileSave = new File(UPLOAD_PATH, originName + "." + type); // 경로/파일.type
+
+        if (!fileSave.exists()) { // 폴더가 없을 경우 폴더 만들기
+            fileSave.mkdirs();
+        }
+
+        try {
+            file.transferTo(fileSave);
+            fileFlag = 1;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        // transferTo(File file) > multipartFile을 주어진 file의 경로로 이동
+
+
+
+        FeedDTO dto = FeedDTO.builder()
+                .feed_content(feed_content)
+                .feed_file(UPLOAD_PATH + originName + "." + type)
+                .feed_user_fno(Integer.parseInt(feed_user_fno))
+                .build();
+
+        log.info(dto.toString());
+        feedService.writeFeed(dto);
+        String[] hashtags = hashtag.split("#");
+        List<HashtagDTO> hashtagList = new ArrayList<HashtagDTO>();
+        for(String tag : hashtags) {
+            String result = tag.trim();
+            HashtagDTO hashtagDTO = HashtagDTO.builder().hashtag_content(tag).hashtag_feed_fno(dto.getFeed_pno()).build();
+            hashtagList.add(hashtagDTO);
+        }
+        hashtagService.updateHashtags(hashtagList);
+    }
+
+
+
+
+    @PostMapping("/testfollow")
+    public int test(@RequestBody FeedDTO dto, @AuthenticationPrincipal String feed_user_fno) {
         dto.setFeed_user_fno(Integer.parseInt(feed_user_fno));
-        log.info(dto.toString());
-        return  feedService.writeFeed(dto);
+        feedService.writeFeed(dto);
+        return dto.getFeed_pno();
     }
-
-    @PostMapping("/test")
-        public int test(@RequestBody FeedDTO dto) {
-            return feedService.writeFeed(dto);
-
-    }
-
-    @GetMapping("/detail")
-    FeedDTO detail(@RequestParam("feed_pno") int pno) {
-        FeedDTO dto = feedService.detailFeed(pno);
-        dto.setFiles(filesService.files(pno));
-        dto.setHashtags(hashtagService.tags(pno));
-
-        List<LikeDTO> likeList = likeService.likeList(pno);
-        for (LikeDTO likeDTO : likeList) {
-            likeDTO.setLike_user_nick(userService.selectUserNick(likeDTO.getLike_user_fno()));
-        }
-        dto.setLikes(likeList);
-
-        List<ReplyDTO> replyList = replyService.replyList(pno);
-        for (ReplyDTO replyDTO : replyList) {
-            replyDTO.setReply_user_nick(userService.selectUserNick(replyDTO.getReply_user_fno()));
-        }
-        dto.setReply(replyService.replyList(pno));
-
-        dto.setFeed_user_nick(userService.selectUserNick(dto.getFeed_user_fno()));
-
-        log.info(dto.toString());
-        return dto;
-    }
-
 
     @GetMapping("/delete")
     int delete(@RequestParam("feed_pno") int pno) {
@@ -100,8 +124,29 @@ public class FeedController {
     }
 
     @PostMapping("/update")
-    int update(@RequestBody FeedDTO dto) {
-        return feedService.updateFeed(dto);
+    String update(@RequestBody FeedDTO dto, @AuthenticationPrincipal String feed_user_fno, MultipartFile file) {
+        String flag = "DB접속 실패";
+        if(dto.getFeed_user_fno() == Integer.parseInt(feed_user_fno)) {
+            String filePath = "C:\\code_photo\\feed_photo"; // 파일 저장 경로
+
+            String fileId = (new Date().getTime() + "" + (new Random().ints(1000, 9999).findAny().getAsInt()));
+            String originName = file.getOriginalFilename();
+            String fileExtension = originName.substring(originName.lastIndexOf(",") + 1);
+            long fileSize = file.getSize();
+
+            File fileSave = new File(filePath, fileId + "." + fileExtension);
+
+            if(!fileSave.exists()) {
+                // 저장 경로 폴더 없을 시 생성
+                fileSave.mkdirs();
+
+            }
+            dto.setFeed_file(fileSave.toString());
+            feedService.updateFeed(dto);
+        }
+
+
+        return flag;
     }
 
     @GetMapping("/like")
@@ -130,6 +175,109 @@ public class FeedController {
             likeUserList.add(userService.selectUserNick(dto.getLike_user_fno()));
         }
         return likeUserList;
+    }
+
+
+    int LIST_IDX =0;
+    int MAX_IDX = 5;
+    int userFno = 0;
+    @GetMapping("/list")
+    List<FeedDTO> feedList(@AuthenticationPrincipal String user_pno) {
+        if(user_pno != null) {
+            userFno = Integer.parseInt(user_pno);
+        } else {
+            userFno = 0;
+        }
+        List<FeedDTO> feedList = new ArrayList<FeedDTO>();
+        List<Integer> followingFeeds = new ArrayList<Integer>();
+        List<Integer> followingReplys = new ArrayList<Integer>();
+        List<Integer> followingLikes = new ArrayList<Integer>();
+        LinkedHashSet<Integer> feedPnos = new LinkedHashSet<Integer>();
+        List<Integer> allFeedFnos = new ArrayList<Integer>();
+
+        if(LIST_IDX == 0) {
+            List<Integer> followingUsers = followService.selectFollowingList(userFno);
+
+
+
+            if (followingUsers.size() != 0) {
+                for (int followingUser : followingUsers) {
+                    List<Integer> feeds = feedService.selectByUserFno(followingUser);
+                    if (feeds.size() != 0) {
+                        for (int feedPno : feeds) {
+                            followingFeeds.add(feedPno);
+                        }
+                    }
+                    List<Integer> replys = replyService.selectFeedFnoByUserFno(followingUser);
+                    if (replys.size() != 0) {
+                        for (int replyFeedFno : replys) {
+                            followingReplys.add(replyFeedFno);
+                        }
+                    }
+                    List<Integer> likes = likeService.selectFeedFnoByUserFno(followingUser);
+                    if (likes.size() != 0) {
+                        for (int likeFeedFno : likes) {
+                            followingLikes.add(likeFeedFno);
+                        }
+                    }
+                }
+            }
+            if (followingFeeds.size() != 0) {
+                for (int feed : followingFeeds) {
+                    feedPnos.add(feed);
+                }
+            }
+            if (followingReplys.size() != 0) {
+                for (int reply : followingReplys) {
+                    feedPnos.add(reply);
+                }
+            }
+            if (followingLikes.size() != 0) {
+                for (int like : followingLikes) {
+                    feedPnos.add(like);
+                }
+            }
+
+            Iterator<Integer> il = feedPnos.iterator();
+            while (il.hasNext()) {
+                allFeedFnos.add(il.next());
+            }
+        }
+        try {
+            for (int i = LIST_IDX; i < MAX_IDX; i++) {
+                feedList.clear();
+                feedList.add(detail(allFeedFnos.get(i)));
+            }
+        } catch (NullPointerException e) {
+            feedList.clear();
+        }
+
+        return feedList;
+    }
+
+
+    FeedDTO detail(int pno) {
+
+        FeedDTO dto = feedService.detailFeed(pno);
+        dto.setHashtags(hashtagService.tags(pno));
+
+        List<LikeDTO> likeList = likeService.likeList(pno);
+        for (LikeDTO likeDTO : likeList) {
+            likeDTO.setLike_user_nick(userService.selectUserNick(likeDTO.getLike_user_fno()));
+        }
+        dto.setLikes(likeList);
+
+        List<ReplyDTO> replyList = replyService.replyList(pno);
+        for (ReplyDTO replyDTO : replyList) {
+            replyDTO.setReply_user_nick(userService.selectUserNick(replyDTO.getReply_user_fno()));
+        }
+        dto.setReply(replyService.replyList(pno));
+
+        dto.setFeed_user_nick(userService.selectUserNick(dto.getFeed_user_fno()));
+
+        log.info(dto.toString());
+        return dto;
+
     }
 
 }

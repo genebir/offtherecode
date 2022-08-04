@@ -24,4 +24,6 @@ public interface UserMapperRepository {
     @Delete("delete from tbl_user where user_pno=#{user_pno}")
     int deleteUser(int user_pno);
 
+    @Select("select * from tbl_user where user_nick=#{user_nick}")
+    UserDTO selectByNick(String nick);
 }

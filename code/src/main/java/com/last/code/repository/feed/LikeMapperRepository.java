@@ -20,4 +20,7 @@ public interface LikeMapperRepository {
     @Delete("delete from tbl_like where like_feed_fno = #{like_feed_fno} and like_user_fno = #{like_user_fno}")
     int unlikeFeed(LikeDTO dto);
 
+    @Select("select like_feed_fno from tbl_like where like_user_fno = #{like_user_fno}")
+    List<Integer> selectFeedFnoByUserFno(int like_user_fno);
+
 }

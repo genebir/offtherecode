@@ -19,4 +19,7 @@ public interface ReplyMapperRepository {
 
     @Delete("delete from tbl_reply where reply_pno = #{reply_pno}")
     int deleteReply(int reply_pno);
+
+    @Select("select reply_feed_fno from tbl_reply where reply_user_fno = #{reply_user_fno} and (to_char(reply_date, 'yyyymmdd') = to_char(sysdate, 'yyyymmdd') or to_char(reply_date, 'yyyymmdd') = to_char(sysdate-1, 'yyyymmdd')")
+    List<Integer> selectFeedFnoByUserFno(int reply_user_fno);
 }

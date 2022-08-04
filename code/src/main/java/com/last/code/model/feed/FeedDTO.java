@@ -22,7 +22,7 @@ public class FeedDTO {
     private int feed_user_fno;
     private LocalDate feed_date;
     private String feed_user_nick;
-    private List<FilesDTO> files;
+    private String feed_file;
     private List<LikeDTO> likes;
     private List<ReplyDTO> reply;
     private List<HashtagDTO> hashtags;

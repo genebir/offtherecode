@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -28,6 +29,12 @@ public class LikeService {
 
     public int unlikeFeed(LikeDTO dto) {
         return likeMapperRepository.unlikeFeed(dto);
+    }
+
+    public List<Integer> selectFeedFnoByUserFno(int like_user_fno) {
+        List<Integer> feedFnos = likeMapperRepository.selectFeedFnoByUserFno(like_user_fno);
+        Collections.sort(feedFnos, Collections.reverseOrder());
+        return feedFnos;
     }
 
 }
