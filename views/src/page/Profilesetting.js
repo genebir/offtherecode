@@ -14,13 +14,10 @@ import Footer from "./Layout/Footer";
 const profilebanner = (states, action) => {
   switch (action.type) {
     case "ACCOUNTSETTING":
-      console.log(states);
       return (states = 1);
     case "STATUS":
-      console.log(states);
       return (states = 2);
     case "CHANGEPASSWORD":
-      console.log(states);
       return (states = 3);
     case "NOTIFICATIONS":
       return (states = 4);
@@ -132,7 +129,7 @@ const Profilesetting = () => {
             <div className="account-tabs-setting">
               <div className="row">
                 <div className="col-lg-3">
-                  <div className="acc-leftbar">
+                  <div className="acc-leftbar" style={{ cursor: "pointer" }}>
                     <div className="nav nav-tabs" id="nav-tab" role="tablist">
                       <a
                         className={

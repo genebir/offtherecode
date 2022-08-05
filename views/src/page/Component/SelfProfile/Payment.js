@@ -1,7 +1,14 @@
-const Payment = () => {
+const Payment = (props) => {
   return (
     <div>
-      <div className="product-feed-tab current" id="payment-dd">
+      <div
+        className={
+          props.state === 7
+            ? "product-feed-tab animated fadeIn current"
+            : "product-feed-tab animated fadeIn"
+        }
+        id="payment-dd"
+      >
         <div className="billing-method">
           <ul>
             <li>

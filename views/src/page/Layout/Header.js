@@ -1,15 +1,7 @@
 import { Fragment, useEffect, useReducer, useState } from "react";
-import { Link } from "react-router-dom";
-import Home from "../HomeContents";
-import Companies from "../Companies";
 import HeaderMessage from "./HeaderMessage";
 import HeaderNotification from "./HeaderNotification";
 import HeaderUser from "./HeaderUser";
-import Projects from "../Projects";
-import Profile from "../Profile";
-import Jobs from "../Jobs";
-import Message from "../Message";
-import ErrorModal from "./ErrorModal";
 // usereducer로 화면전환 그래프 화상채팅
 
 const Header = (props) => {
@@ -19,38 +11,25 @@ const Header = (props) => {
   const [isMenuBtn, setIsMenuBtn] = useState(false);
   function messagebanner() {
     setIsMessage((event) => !event);
+    setIsUser(false);
+    setIsNotification(false);
   }
 
   const NotificationHandler = () => {
     setIsNotification((event) => !event);
+    setIsMessage(false);
+    setIsUser(false);
   };
 
   const userhandler = () => {
     setIsUser((event) => !event);
+    setIsMessage(false);
+    setIsNotification(false);
   };
 
   const menubtnHandler = () => {
     setIsMenuBtn((event) => !event);
   };
-
-  // useEffect(() => {
-  //   switch (state) {
-  //     case 1:
-  //       return <Home />;
-  //     case 2:
-  //       return <Companies />;
-  //     case 3:
-  //       return <Projects />;
-  //     case 4:
-  //       return <Profile />;
-  //     case 5:
-  //       return <Jobs />;
-  //     case 6:
-  //       return <Message />;
-  //     default:
-  //       return <ErrorModal />;
-  //   }
-  // }, [state]);
 
   return (
     <header>
@@ -77,7 +56,10 @@ const Header = (props) => {
             </form>
           </div>
           {/*search-bar end*/}
-          <nav className={isMenuBtn ? "active" : null}>
+          <nav
+            className={isMenuBtn ? "active" : null}
+            style={{ textAlign: "center" }}
+          >
             <ul>
               <li onClick={props.closeFooterContent}>
                 <a href="#!" onClick={props.home}>
@@ -91,7 +73,7 @@ const Header = (props) => {
                 </a>
               </li>
               <Fragment>
-                <li onClick={props.closeFooterContent}>
+                {/* <li onClick={props.closeFooterContent}>
                   <a href="#!" title="" onClick={props.companies}>
                     <span>
                       <img
@@ -111,9 +93,9 @@ const Header = (props) => {
                       <a href="#!">Company Profile</a>
                     </li>
                   </ul>
-                </li>
-                <li onClick={props.closeFooterContent}>
-                  <a href="#!" onClick={props.projects}>
+                </li> */}
+                <li onClick={props.openforum}>
+                  <a href="#!" onClick={props.forum}>
                     <span>
                       <img
                         src={`${process.env.PUBLIC_URL}/images/icon3.png`}
@@ -135,7 +117,9 @@ const Header = (props) => {
                   </a>
                   <ul>
                     <li>
-                      <a href="#!">User Profile</a>
+                      <a href="#!" onClick={props.userprofile}>
+                        User Profile
+                      </a>
                     </li>
                     <li>
                       <a href="#!" onClick={props.myprofile}>
@@ -144,7 +128,7 @@ const Header = (props) => {
                     </li>
                   </ul>
                 </li>
-                <li onClick={props.closeFooterContent}>
+                {/* <li onClick={props.closeFooterContent}>
                   <a href="#!" onClick={props.jobs}>
                     <span>
                       <img
@@ -154,7 +138,7 @@ const Header = (props) => {
                     </span>
                     Jobs
                   </a>
-                </li>
+                </li> */}
                 <li onClick={props.closeFooterContent}>
                   <a
                     href="#!"
@@ -179,7 +163,7 @@ const Header = (props) => {
                   )}
                   {/*notification-box end*/}
                 </li>
-                <li onClick={props.closeFooterContent}>
+                {/* <li onClick={props.closeFooterContent}>
                   <a
                     href="#!"
                     title=""
@@ -199,7 +183,7 @@ const Header = (props) => {
                       closeFooterContent={props.closeFooterContent}
                     />
                   )}
-                </li>
+                </li> */}
               </Fragment>
             </ul>
           </nav>

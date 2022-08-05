@@ -1,7 +1,14 @@
-const Jobs = () => {
+const Jobs = (props) => {
   return (
     <div>
-      <div className="product-feed-tab current" id="saved-jobs">
+      <div
+        className={
+          props.state === 3
+            ? "product-feed-tab animated fadeIn current"
+            : "product-feed-tab animated fadeIn"
+        }
+        id="saved-jobs"
+      >
         <ul className="nav nav-tabs" id="myTab" role="tablist">
           <li className="nav-item">
             <a

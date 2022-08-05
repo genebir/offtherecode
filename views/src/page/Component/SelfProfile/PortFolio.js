@@ -1,7 +1,14 @@
-const PortFolio = () => {
+const PortFolio = (props) => {
   return (
     <div>
-      <div className="product-feed-tab current" id="portfolio-dd">
+      <div
+        className={
+          props.state === 5
+            ? "product-feed-tab animated fadeIn current"
+            : "product-feed-tab animated fadeIn"
+        }
+        id="portfolio-dd"
+      >
         <div className="portfolio-gallery-sec">
           <h3>Portfolio</h3>
           <div className="portfolio-btn">
