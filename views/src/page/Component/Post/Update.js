@@ -1,12 +1,14 @@
 import { useRef, useState } from "react";
 import * as React from "react";
-import axios, { post } from "axios";
 
-const PostJob = (props) => {
+const Update = (props, { updateData }) => {
   const [fileUrl, setFileUrl] = useState("");
   const [imgBase64, setImgBase64] = useState([]); // 파일 base64
   const [imgFile, setImgFile] = useState(null);
+  const [updateresult, setUpdateResult] = useState([]);
 
+  //   setUpdateResult.concat(updateData);
+  console.log(updateresult);
   const enteredContent = useRef();
   const inputHashtags = useRef();
 
@@ -57,14 +59,6 @@ const PostJob = (props) => {
         "Content-Type": "application/x-www-form-urlencoded; charset=UTF-8",
       },
     }).then((response) => console.log(response.json()));
-
-    // await axios
-    //   .post("http://localhost:8888/feed/insert", fd, {
-    //     headers: {
-    //       "Content-Type": `multipart/form-data;`,
-    //     },
-    //   })
-    //   .then((response) => console.log(response.data));
   };
 
   const preview = async () => {
@@ -79,7 +73,7 @@ const PostJob = (props) => {
   return (
     <div
       className={
-        props.isJob ? "post-popup job_post active" : "post-popup job_post"
+        props.isUpdate ? "post-popup job_post active" : "post-popup job_post"
       }
     >
       <div className="post-project">
@@ -110,6 +104,7 @@ const PostJob = (props) => {
                   name="description"
                   placeholder="Description"
                   defaultValue={""}
+                  //   value={Data.feed_content}
                   style={{ resize: "none" }}
                   ref={enteredContent}
                 ></textarea>
@@ -130,7 +125,7 @@ const PostJob = (props) => {
                     </button>
                   </li>
                   <li>
-                    <a title="" onClick={props.isjobhandler}>
+                    <a title="" onClick={props.isUpdateHandler}>
                       Cancel
                     </a>
                   </li>
@@ -144,7 +139,7 @@ const PostJob = (props) => {
           </form>
         </div>
         {/*post-project-fields end*/}
-        <a href="#" title="" onClick={props.isjobhandler}>
+        <a href="#" title="" onClick={props.isUpdateHandler}>
           <i className="la la-times-circle-o" />
         </a>
         {/*post-project end*/}
@@ -153,4 +148,4 @@ const PostJob = (props) => {
   );
 };
 
-export default PostJob;
+export default Update;

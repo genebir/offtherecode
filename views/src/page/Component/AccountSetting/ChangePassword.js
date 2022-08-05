@@ -33,7 +33,7 @@ const ChangePassword = () => {
       {
         method: "POST",
         body: JSON.stringify(passworddata),
-        headers: authCtx.currenttoken(localStorage.getItem("token")),
+        headers: authCtx.currenttoken(localStorage.getItem("token")), //폼 데이터
       }
     ).then((response) => console.log(response));
   };

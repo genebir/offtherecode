@@ -116,7 +116,7 @@ const SignupForm = (props) => {
                     placeholder="Nickname"
                     ref={inputNickname}
                   />
-                  <i className="la la-globe" />
+                  <i className="la la-globe" style={{ float: "right" }} />
                 </div>
               </div>
               <div className="col-lg-12 no-pdd">
@@ -166,7 +166,12 @@ const SignupForm = (props) => {
                 <button type="submit" value="submit">
                   Get Started
                 </button>
-                {error ? <ErrorModal onClose={() => setError(false)} /> : null}
+                {error ? (
+                  <ErrorModal
+                    errorType={"회원가입 오류"}
+                    onClose={() => setError(false)}
+                  />
+                ) : null}
                 {ValidSignup && (
                   <SignupModal
                     signin={props.signin}

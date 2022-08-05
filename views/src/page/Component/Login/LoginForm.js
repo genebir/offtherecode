@@ -29,14 +29,20 @@ const LoginForm = (props) => {
           if (data.token === 1) {
             // 이메일 오류
             setErrorType("이메일 오류");
+            setError(true);
+            return;
           } else if (data.token === 2) {
             //비밀번호 오류
             setErrorType("패스워드 오류");
+            setError(true);
+            return;
           }
-          authCtx.currenttoken(data.token);
+          const addtoken = authCtx.currenttoken(data.token);
+          console.log(addtoken);
+          localStorage.setItem("addtoken", addtoken);
         });
     } catch {
-      setError(true);
+      setErrorType("로그인 실패");
     }
   };
 
@@ -47,7 +53,7 @@ const LoginForm = (props) => {
     const enterPassword = inputPassword.current.value;
 
     if (enterPassword.length < 4 || enterUserName.length < 4) {
-      setError(true);
+      setErrorType("4자리 이상 기입해주세요");
       return;
     }
 

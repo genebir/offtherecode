@@ -7,11 +7,15 @@ import AuthContext from "./store/auth-context";
 import Home from "./page/Home";
 
 const App = () => {
+  let token = localStorage.getItem("token");
   const ctx = useContext(AuthContext);
   return (
     <div>
       <Routes>
-        <Route path="/" element={ctx.isLoggedIn ? <Home /> : <Signin />} />
+        <Route
+          path="/"
+          element={token && token.length > 1 ? <Home /> : <Signin />}
+        />
         <Route path="/signin" element={<Signin />} />
         <Route path="/chat" element={(props) => <Message {...props} />} />
         {/* <Route path="/about" element={<About />} />

@@ -1,11 +1,11 @@
-const Comment = (props) => {
+const Comment = ({ replyList }) => {
   return (
     <div className="comment-section">
       <div className="comment-sec">
         <ul>
-          {props.comment.map((item) => {
+          {replyList.map((item, key) => {
             return (
-              <li>
+              <li key={key}>
                 <div className="comment-list">
                   <div className="bg-img">
                     <img src="images/resources/bg-img1.png" alt="" />
@@ -13,9 +13,9 @@ const Comment = (props) => {
                   <div className="comment">
                     <h3>John Doe</h3>
                     <span>
-                      <img src="images/clock.png" alt="" /> 3 min ago
+                      <img src="images/clock.png" alt="" /> {item.reply_date}
                     </span>
-                    <p>{item.guest_feedreply} </p>
+                    <p>{item.reply_content} </p>
                     <a href="#!" title="" className="active">
                       <i className="fa fa-reply-all" />
                       Reply

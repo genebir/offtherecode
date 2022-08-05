@@ -63,17 +63,18 @@ const Home = () => {
   const [isProject, setIsProject] = useState(false);
   const [isContent, setIsContent] = useState(true);
   const [isFooterContent, setIsFooterContent] = useState(false);
+  const [isUpdate, setIsUpdate] = useState(false);
 
-  useEffect(() => {
-    // HomeContents초기 데이터 받아오기
-    fetch("http://localhost:8888", {
-      method: "GET",
-    })
-      .then((response) => {
-        return response.json();
-      })
-      .then((data) => console.log(data));
-  }, []);
+  // useEffect(() => {
+  //   // HomeContents초기 데이터 받아오기
+  //   fetch("http://localhost:8888", {
+  //     method: "GET",
+  //   })
+  //     .then((response) => {
+  //       return response.json();
+  //     })
+  //     .then((data) => console.log(data));
+  // }, []);
 
   const closeFooterContent = () => {
     setIsFooterContent(false);
@@ -103,6 +104,10 @@ const Home = () => {
 
   const isjobhandler = () => {
     setIsJob((event) => !event);
+  };
+
+  const isUpdateHandler = () => {
+    setIsUpdate((event) => !event);
   };
 
   const helpcenter = () => {
@@ -221,7 +226,9 @@ const Home = () => {
       <link rel="stylesheet" type="text/css" href="css/responsive.css" />
       <div
         className={
-          isProject === true || isJob === true ? "wrapper overlay" : "wrapper"
+          isProject === true || isJob === true || isUpdate === true
+            ? "wrapper overlay"
+            : "wrapper"
         }
       >
         {footer !== 1 && footer !== 3 ? (
@@ -248,8 +255,10 @@ const Home = () => {
               <HomeContents
                 isProject={isProject}
                 isJob={isJob}
+                isUpdate={isUpdate}
                 isprojhandler={isprojhandler}
                 isjobhandler={isjobhandler}
+                isUpdateHandler={isUpdateHandler}
                 helpcenter={helpcenter}
                 myprofile={myprofile}
                 forum={forum}
