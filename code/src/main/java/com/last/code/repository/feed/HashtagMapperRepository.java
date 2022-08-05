@@ -11,7 +11,7 @@ public interface HashtagMapperRepository {
     @Select("select * from tbl_hashtag where hashtag_feed_fno = #{hashtag_feed_fno}")
     List<HashtagDTO> tagList(int hashtag_feed_fno);
 
-    @Insert("insert into tbl_hashtag values(#{hashtag_feed_fno}, #{hashtag_content})")
+    @Insert("insert into tbl_hashtag(hashtag_feed_fno, hashtag_content) values(#{hashtag_feed_fno}, #{hashtag_content})")
     int writeTag(HashtagDTO dto);
 
     @Delete("delete from tbl_hashtag where hashtag_feed_fno = #{hashtag_feed_fno}")

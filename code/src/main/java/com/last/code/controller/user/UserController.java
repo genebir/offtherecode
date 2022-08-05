@@ -67,21 +67,24 @@ public class UserController {
     }
 
     @PostMapping("/changepw") // 비밀번호 변경
-    public void updatepw(@RequestParam("old_pw") String oldPw,
+    public int updatepw(@RequestParam("old_pw") String oldPw,
                          @RequestParam("new_pw") String newPw,
                          @AuthenticationPrincipal String user_pno) {
         UserDTO signUser = null;
+        int flag = 0;
         if(user_pno!=null) {
             signUser = userService.userDetail(Integer.parseInt(user_pno));
             log.info(signUser.toString());
         }
         if(signUser!=null) {
-            if(signUser.equals(oldPw)) {
+            if(signUser.getUser_pw().equals(oldPw)) {
                 signUser.setUser_pw(newPw);
                 userService.updatePw(signUser);
                 log.info("비밀번호 변경 완료");
+                flag = 1;
             }
         }
+        return flag;
     }
 
     @PostMapping("/delete") // 회원탈퇴
@@ -122,7 +125,7 @@ public class UserController {
         int user_fno = Integer.parseInt(follow_user_fno);
         int following_fno = Integer.parseInt(follow_following_fno);
 
-        if(user_fno != 0 && following_fno == 0) {
+        if(user_fno != 0 && following_fno != 0) {
             dto = new FollowDTO(user_fno, following_fno);
         }
         if(dto != null) {
@@ -138,7 +141,7 @@ public class UserController {
         int user_fno = Integer.parseInt(follow_user_fno);
         int following_fno = Integer.parseInt(follow_following_fno);
 
-        if(user_fno != 0 && following_fno == 0) {
+        if(user_fno != 0 && following_fno != 0) {
             dto = new FollowDTO(user_fno, following_fno);
         }
         if(dto!=null) {

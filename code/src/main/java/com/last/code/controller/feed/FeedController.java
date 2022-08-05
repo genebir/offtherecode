@@ -66,7 +66,7 @@ public class FeedController {
                @RequestParam("feed_file") MultipartFile file,
                @AuthenticationPrincipal String feed_user_fno) {
 
-        String UPLOAD_PATH = "C:\\code_photo\\feed_photo" + new Date().getTime(); // 업로드 할 위치 // 현재 날짜 값 폴더
+        String UPLOAD_PATH = "C:/code_photo/feed_photo" + new Date().getTime(); // 업로드 할 위치 // 현재 날짜 값 폴더
 
         int fileFlag = 0;
         String originName = file.getOriginalFilename(); // 파일.type
@@ -89,23 +89,36 @@ public class FeedController {
         // transferTo(File file) > multipartFile을 주어진 file의 경로로 이동
 
 
+        log.info(UPLOAD_PATH +"/" +originName + "." + type);
 
         FeedDTO dto = FeedDTO.builder()
                 .feed_content(feed_content)
-                .feed_file(UPLOAD_PATH + originName + "." + type)
+                .feed_file(UPLOAD_PATH +"/" +originName + "." + type)
                 .feed_user_fno(Integer.parseInt(feed_user_fno))
                 .build();
 
         log.info(dto.toString());
+
+
         feedService.writeFeed(dto);
+        log.info(dto.toString());
+
         String[] hashtags = hashtag.split("#");
+        log.info(Arrays.toString(hashtags));
         List<HashtagDTO> hashtagList = new ArrayList<HashtagDTO>();
         for(String tag : hashtags) {
             String result = tag.trim();
-            HashtagDTO hashtagDTO = HashtagDTO.builder().hashtag_content(tag).hashtag_feed_fno(dto.getFeed_pno()).build();
+            HashtagDTO hashtagDTO = HashtagDTO.builder().hashtag_content(result).hashtag_feed_fno(dto.getFeed_pno()).build();
             hashtagList.add(hashtagDTO);
         }
-        hashtagService.updateHashtags(hashtagList);
+       for(int i=0; i<hashtagList.size(); i++) {
+           HashtagDTO hashtagDTO = hashtagList.get(i);
+           if(hashtagDTO.getHashtag_content().equals("")) {
+               hashtagList.remove(i);
+           }
+       }
+        log.info(hashtagList.toString());
+        hashtagService.writeTags(hashtagList);
     }
 
 
@@ -124,25 +137,53 @@ public class FeedController {
     }
 
     @PostMapping("/update")
-    String update(@RequestBody FeedDTO dto, @AuthenticationPrincipal String feed_user_fno, MultipartFile file) {
+    String update(@RequestParam("feed_pno") String feed_pno,
+                  @RequestParam("feed_content") String feed_content,
+                  @RequestParam("feed_hashtag") String hashtag,
+                  @RequestParam("feed_file") MultipartFile file,
+                  @AuthenticationPrincipal String feed_user_fno) {
         String flag = "DB접속 실패";
+        FeedDTO dto = feedService.detailFeed(Integer.parseInt(feed_pno));
+
         if(dto.getFeed_user_fno() == Integer.parseInt(feed_user_fno)) {
-            String filePath = "C:\\code_photo\\feed_photo"; // 파일 저장 경로
+            String UPLOAD_PATH = "C:\\code_photo\\feed_photo" + new Date().getTime(); // 업로드 할 위치 // 현재 날짜 값 폴더
 
-            String fileId = (new Date().getTime() + "" + (new Random().ints(1000, 9999).findAny().getAsInt()));
-            String originName = file.getOriginalFilename();
-            String fileExtension = originName.substring(originName.lastIndexOf(",") + 1);
-            long fileSize = file.getSize();
+            int fileFlag = 0;
+            String originName = file.getOriginalFilename(); // 파일.type
+            String[] tempStr = originName.split("\\.");
+            originName = tempStr[0];
+            String type = tempStr[1];
 
-            File fileSave = new File(filePath, fileId + "." + fileExtension);
+            File fileSave = new File(UPLOAD_PATH, originName + "." + type); // 경로/파일.type
 
-            if(!fileSave.exists()) {
-                // 저장 경로 폴더 없을 시 생성
+            if (!fileSave.exists()) { // 폴더가 없을 경우 폴더 만들기
                 fileSave.mkdirs();
-
             }
-            dto.setFeed_file(fileSave.toString());
-            feedService.updateFeed(dto);
+
+            try {
+                file.transferTo(fileSave);
+                fileFlag = 1;
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            // transferTo(File file) > multipartFile을 주어진 file의 경로로 이동
+
+
+            FeedDTO updateDTO = FeedDTO.builder()
+                    .feed_content(feed_content)
+                    .feed_file(UPLOAD_PATH + originName + "." + type)
+                    .feed_user_fno(Integer.parseInt(feed_user_fno))
+                    .build();
+
+            feedService.updateFeed(updateDTO);
+            String[] hashtags = hashtag.split("#");
+            List<HashtagDTO> hashtagList = new ArrayList<HashtagDTO>();
+            for(String tag : hashtags) {
+                String result = tag.trim();
+                HashtagDTO hashtagDTO = HashtagDTO.builder().hashtag_content(result).hashtag_feed_fno(dto.getFeed_pno()).build();
+                hashtagList.add(hashtagDTO);
+            }
+            hashtagService.updateHashtags(hashtagList);
         }
 
 
@@ -202,7 +243,7 @@ public class FeedController {
 
             if (followingUsers.size() != 0) {
                 for (int followingUser : followingUsers) {
-                    List<Integer> feeds = feedService.selectByUserFno(followingUser);
+                    List<Integer> feeds = feedService.selectByUserFnoTwoDays(followingUser);
                     if (feeds.size() != 0) {
                         for (int feedPno : feeds) {
                             followingFeeds.add(feedPno);
@@ -244,18 +285,26 @@ public class FeedController {
             }
         }
         try {
+            feedList.clear();
             for (int i = LIST_IDX; i < MAX_IDX; i++) {
-                feedList.clear();
                 feedList.add(detail(allFeedFnos.get(i)));
             }
         } catch (NullPointerException e) {
             feedList.clear();
         }
+        log.info(LIST_IDX + "");
+        LIST_IDX += 5;
+        MAX_IDX += 5;
 
         return feedList;
     }
 
 
+    @GetMapping("/detail")
+    FeedDTO detail(@RequestParam("feed_pno") String feed_pno) {
+        int feedPno = Integer.parseInt(feed_pno);
+        return detail(feedPno);
+    }
     FeedDTO detail(int pno) {
 
         FeedDTO dto = feedService.detailFeed(pno);

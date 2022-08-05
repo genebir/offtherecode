@@ -2,8 +2,10 @@ package com.last.code.controller.feed;
 
 import com.last.code.model.feed.ReplyDTO;
 import com.last.code.service.feed.ReplyService;
+import com.last.code.service.user.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,13 +19,12 @@ public class ReplyController {
     @Autowired
     private ReplyService service;
 
-    @GetMapping("/list")
-    public List<ReplyDTO> ReplyList(int reply_feed_fno) {
-        return service.replyList(reply_feed_fno);
-    }
+
 
     @PostMapping("/insert")
-    public int writeReply(ReplyDTO dto) {
+    public int writeReply(ReplyDTO dto, @AuthenticationPrincipal String reply_user_fno) {
+        int userPno = Integer.parseInt(reply_user_fno);
+        dto.setReply_user_fno(userPno);
         return service.writeReply(dto);
     }
 
