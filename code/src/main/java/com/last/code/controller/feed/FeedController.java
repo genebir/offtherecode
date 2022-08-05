@@ -291,6 +291,9 @@ public class FeedController {
             }
         } catch (NullPointerException e) {
             feedList.clear();
+            feedList = feedService.feedAll();
+            LIST_IDX = 0;
+            MAX_IDX = 5;
         }
         log.info(LIST_IDX + "");
         LIST_IDX += 5;

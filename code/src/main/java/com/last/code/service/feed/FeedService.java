@@ -44,6 +44,10 @@ public class FeedService {
         return feedPnos;
     }
 
+
+    public List<FeedDTO> feedAll() {
+        return repository.feedAll();
+    }
     public List<Integer> selectByUserFnoTwoDays(int feed_user_fno) {
         List<Integer> feedPnos = repository.selectByUserFnoTwoDays(feed_user_fno);
         Collections.sort(feedPnos, Collections.reverseOrder());

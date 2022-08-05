@@ -28,6 +28,9 @@ public interface FeedMapperRepository {
     @Select("select * from tbl_feed where feed_pno = #{feed_pno}")
     FeedDTO feedDetail(int feed_pno);
 
+    @Select("select * from tbl_feed")
+    List<FeedDTO> feedAll();
+
     @Update("update tbl_feed set feed_content=#{feed_content}, feed_file=#{feed_file} where feed_pno=#{feed_pno}")
     int updateFeed(FeedDTO dto);
 
