@@ -1,8 +1,17 @@
 const LeftBanner = () => {
+  const username = "서버에서 유저네임 받아오기";
+  const changeview = async () => {
+    await fetch(`http://localhost:8888/messages/${username}`).then(
+      (
+        response // default가 get방식
+      ) => console.log(response)
+    );
+  };
+
   return (
     <div>
       <ul>
-        <li className="active">
+        <li className="active" onClick={changeview}>
           <div className="usr-msg-details">
             <div className="usr-ms-img">
               <img src="images/resources/m-img1.png" alt="" />

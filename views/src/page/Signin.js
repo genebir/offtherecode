@@ -53,7 +53,7 @@ const Signin = () => {
       <link rel="stylesheet" type="text/css" href="lib/slick/slick-theme.css" />
       <link rel="stylesheet" type="text/css" href="css/style.css" />
       <link rel="stylesheet" type="text/css" href="css/responsive.css" />
-      <body div className="sign-in">
+      <body div className="sign-in" style={{ height: "100vh" }}>
         <div className="wrapper">
           <div className="sign-in-page">
             <div className="signin-popup">
@@ -81,7 +81,11 @@ const Signin = () => {
                               : "animated fadeIn"
                           }
                         >
-                          <a title="" onClick={signin}>
+                          <a
+                            title=""
+                            onClick={signin}
+                            style={{ cursor: "pointer" }}
+                          >
                             Sign in
                           </a>
                         </li>
@@ -93,7 +97,11 @@ const Signin = () => {
                               : "animated fadeIn"
                           }
                         >
-                          <a title="" onClick={signup}>
+                          <a
+                            title=""
+                            onClick={signup}
+                            style={{ cursor: "pointer" }}
+                          >
                             Sign up
                           </a>
                         </li>
@@ -101,7 +109,7 @@ const Signin = () => {
                       <LoginForm state={state} />
                       {/*로그인 폼 컴포넌트 분리*/}
                       {/*sign_in_sec end*/}
-                      <SignupForm state={state} />
+                      <SignupForm state={state} signin={signin} />
                       {/*회원가입 폼 컴포넌트 분리*/}
                     </div>
                     {/*login-sec end*/}
@@ -111,62 +119,6 @@ const Signin = () => {
               {/*signin-pop end*/}
             </div>
             {/*signin-popup end*/}
-            <div className="footy-sec">
-              <div className="container">
-                <ul>
-                  <li>
-                    <a href="help-center.html" title="">
-                      Help Center
-                    </a>
-                  </li>
-                  <li>
-                    <a href="about.html" title="">
-                      About
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" title="">
-                      Privacy Policy
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" title="">
-                      Community Guidelines
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" title="">
-                      Cookies Policy
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" title="">
-                      Career
-                    </a>
-                  </li>
-                  <li>
-                    <a href="forum.html" title="">
-                      Forum
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" title="">
-                      Language
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" title="">
-                      Copyright Policy
-                    </a>
-                  </li>
-                </ul>
-                <p>
-                  <img src="images/copy-icon.png" alt="" />
-                  Copyright 2019
-                </p>
-              </div>
-            </div>
-            {/*footy-sec end*/}
           </div>
           {/*sign-in-page end*/}
         </div>

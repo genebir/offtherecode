@@ -1,46 +1,73 @@
-import { useContext, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AuthContext from "../../../store/auth-context";
 import ErrorModal from "../../Layout/ErrorModal";
 
 const LoginForm = (props) => {
+  const [token, setToken] = useState();
   const authCtx = useContext(AuthContext);
   const [error, setError] = useState(false);
   const history = useNavigate();
   const inputUserName = useRef();
   const inputPassword = useRef();
+  const [errorType, setErrorType] = "";
 
-  const loginHandler = (loginData) => {
+  const loginHandler = async (loginData) => {
     //로그인 데이터 전송 함수
-    fetch("https://react-http-fa2fe-default-rtdb.firebaseio.com/login.json", {
-      method: "POST",
-      body: JSON.stringify(loginData),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }).then(() => {
-      history("/", { replace: true });
-    });
+
+    try {
+      await fetch("http://localhost:8888/user/signin", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(loginData),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          authCtx.onLogin(loginData.user_email, data.token, data.user_nick);
+          if (data.token === 1) {
+            // 이메일 오류
+            setErrorType("이메일 오류");
+            setError(true);
+            return;
+          } else if (data.token === 2) {
+            //비밀번호 오류
+            setErrorType("패스워드 오류");
+            setError(true);
+            return;
+          }
+          const addtoken = authCtx.currenttoken(data.token);
+          console.log(addtoken);
+          localStorage.setItem("addtoken", addtoken);
+        });
+    } catch {
+      setErrorType("로그인 실패");
+    }
   };
 
   const onSubmitHandler = (event) => {
-    // 로그인 버튼 눌렀을때 작동하는 함수
     event.preventDefault();
+    // 로그인 버튼 눌렀을때 작동하는 함수
     const enterUserName = inputUserName.current.value;
     const enterPassword = inputPassword.current.value;
 
     if (enterPassword.length < 4 || enterUserName.length < 4) {
-      setError(true);
+      setErrorType("4자리 이상 기입해주세요");
       return;
     }
 
     const LoginJsonData = {
-      id: enterUserName,
-      password: enterPassword,
+      user_email: enterUserName,
+      user_pw: enterPassword,
     };
+    try {
+      loginHandler(LoginJsonData);
 
-    loginHandler(LoginJsonData);
-    authCtx.onLogin(enterUserName, enterPassword);
+      history("/");
+    } catch (err) {
+      setError(true);
+    }
   };
   return (
     <div>
@@ -94,7 +121,12 @@ const LoginForm = (props) => {
               <button type="submit" value="submit">
                 Sign in
               </button>
-              {error ? <ErrorModal onClose={() => setError(false)} /> : null}
+              {error ? (
+                <ErrorModal
+                  onClose={() => setError(false)}
+                  errorType={errorType}
+                />
+              ) : null}
             </div>
           </div>
         </form>

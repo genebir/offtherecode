@@ -1,4 +1,4 @@
-import { useReducer } from "react";
+import { useEffect, useReducer, useRef } from "react";
 import Bids from "./Component/SelfProfile/Bids";
 import Feed from "./Component/SelfProfile/Feed";
 import Info from "./Component/SelfProfile/Info/Info";
@@ -9,8 +9,6 @@ import Payment from "./Component/SelfProfile/Payment";
 import PortFolio from "./Component/SelfProfile/PortFolio";
 import Reviews from "./Component/SelfProfile/Reviews";
 import RightSidebar from "./Component/SelfProfile/RightSidebar";
-import Footer from "./Layout/Footer";
-import Header from "./Layout/Header";
 
 const selfprofilebanner = (states, action) => {
   switch (action.type) {
@@ -33,7 +31,35 @@ const selfprofilebanner = (states, action) => {
   }
 };
 
-const Selfprofile = () => {
+const Selfprofile = (props) => {
+  const DUMMY_DATA = [
+    {
+      mynick: "john",
+    },
+    { myinfo: "myinfo" },
+    { myimage: "something image" },
+    { myfollowing: "100" },
+    { myfollower: "50" },
+    { myskill: "myskill" },
+  ];
+
+  const MY_WIKI = [
+    { my_wikiskill: "something skill" },
+    { my_wikicontent: "something content" },
+    { my_wikiwritedata: "something date" },
+    { my_wikiaddwriter: "something addwriter" },
+    { my_wikiaddwritercontent: "something addwriter content" },
+  ];
+
+  const MY_FEED = [
+    { my_feednick: "john" },
+    { my_feedcontent: "something content" },
+    { my_feedwritedate: "something date" },
+    { my_feedreply: "something reply" },
+    { my_feedskill: "my_feedskill" },
+  ];
+
+  const inputFile = useRef();
   const [state, dispatch] = useReducer(selfprofilebanner, 1);
 
   const feed = () => {
@@ -77,6 +103,22 @@ const Selfprofile = () => {
       type: "PAYMENT",
     });
   };
+
+  const consoledir = () => {
+    console.dir(inputFile.current.value);
+  };
+
+  useEffect(() => {
+    // 마이프로필 초기 데이터 받아오기
+    fetch("", {
+      method: "GET",
+    })
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => console.log(data));
+  }, []);
+
   return (
     <>
       <meta charSet="UTF-8" />
@@ -133,7 +175,12 @@ const Selfprofile = () => {
                           alt=""
                         />
                         <div className="add-dp" id="OpenImgUpload">
-                          <input type="file" id="file" />
+                          <input
+                            type="file"
+                            id="file"
+                            ref={inputFile}
+                            onUpload={consoledir}
+                          />
                           <label htmlFor="file">
                             <i class="fas fa-camera" />
                           </label>
@@ -144,64 +191,15 @@ const Selfprofile = () => {
                         <ul className="flw-status">
                           <li>
                             <span>Following</span>
-                            <b>34</b>
+                            <b>{DUMMY_DATA[3].myfollowing}</b>
                           </li>
                           <li>
                             <span>Followers</span>
-                            <b>155</b>
+                            <b>{DUMMY_DATA[4].myfollower}</b>
                           </li>
                         </ul>
                       </div>
                       {/*user_pro_status end*/}
-                      <ul className="social_links">
-                        <li>
-                          <a href="#" title="">
-                            <i className="la la-globe" /> www.example.com
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#" title="">
-                            <i className="fa fa-facebook-square" />{" "}
-                            Http://www.facebook.com/john...
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#" title="">
-                            <i className="fa fa-twitter" />{" "}
-                            Http://www.Twitter.com/john...
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#" title="">
-                            <i className="fa fa-google-plus-square" />{" "}
-                            Http://www.googleplus.com/john...
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#" title="">
-                            <i className="fa fa-behance-square" />{" "}
-                            Http://www.behance.com/john...
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#" title="">
-                            <i className="fa fa-pinterest" />{" "}
-                            Http://www.pinterest.com/john...
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#" title="">
-                            <i className="fa fa-instagram" />{" "}
-                            Http://www.instagram.com/john...
-                          </a>
-                        </li>
-                        <li>
-                          <a href="#" title="">
-                            <i className="fa fa-youtube" />{" "}
-                            Http://www.youtube.com/john...
-                          </a>
-                        </li>
-                      </ul>
                     </div>
                     {/*user_profile end*/}
                     <div className="suggestions full-width">
@@ -295,26 +293,10 @@ const Selfprofile = () => {
                 <div className="col-lg-6">
                   <div className="main-ws-sec">
                     <div className="user-tab-sec rewivew">
-                      <h3>John Doe</h3>
+                      <h3>{DUMMY_DATA[0].mynick}</h3>
                       <div className="star-descp">
                         <span>Graphic Designer at Self Employed</span>
-                        <ul>
-                          <li>
-                            <i className="fa fa-star" />
-                          </li>
-                          <li>
-                            <i className="fa fa-star" />
-                          </li>
-                          <li>
-                            <i className="fa fa-star" />
-                          </li>
-                          <li>
-                            <i className="fa fa-star" />
-                          </li>
-                          <li>
-                            <i className="fa fa-star-half-o" />
-                          </li>
-                        </ul>
+
                         <a href="#" title="">
                           Status
                         </a>
@@ -354,7 +336,7 @@ const Selfprofile = () => {
                               <span>Info</span>
                             </a>
                           </li>
-                          <li
+                          {/* <li
                             data-tab="saved-jobs"
                             className={
                               state === 3
@@ -369,8 +351,8 @@ const Selfprofile = () => {
                               />
                               <span>Jobs</span>
                             </a>
-                          </li>
-                          <li
+                          </li> */}
+                          {/* <li
                             data-tab="my-bids"
                             className={
                               state === 4
@@ -385,7 +367,7 @@ const Selfprofile = () => {
                               />
                               <span>Bids</span>
                             </a>
-                          </li>
+                          </li> */}
                           <li
                             data-tab="portfolio-dd"
                             className={
@@ -415,10 +397,10 @@ const Selfprofile = () => {
                                 src={`${process.env.PUBLIC_URL}/images/review.png`}
                                 alt=""
                               />
-                              <span>Reviews</span>
+                              <span>Wiki</span>
                             </a>
                           </li>
-                          <li
+                          {/* <li
                             data-tab="payment-dd"
                             className={
                               state === 7
@@ -433,25 +415,25 @@ const Selfprofile = () => {
                               />
                               <span>Payment</span>
                             </a>
-                          </li>
+                          </li> */}
                         </ul>
                       </div>
                       {/* tab-feed end*/}
                     </div>
                     {/*user-tab-sec end*/}
-                    {state === 1 ? <Feed /> : null}
-                    {state === 2 ? <Info /> : null}
-                    {state === 3 ? <Jobs /> : null}
-                    {state === 4 ? <Bids /> : null}
-                    {state === 5 ? <PortFolio /> : null}
-                    {state === 6 ? <Reviews /> : null}
-                    {state === 7 ? <Payment /> : null}
+                    <Feed state={state} MY_FEED={MY_FEED} />
+                    <Info state={state} data={DUMMY_DATA} />
+                    <Jobs state={state} />
+                    <Bids state={state} />
+                    <PortFolio state={state} />
+                    <Reviews state={state} MY_WIKI={MY_WIKI} />
+                    <Payment state={state} />
                     {/* <Mybids />  본인 피드는 조건 만족시 출력*/}
                   </div>
                   {/*main-ws-sec end*/}
                 </div>
                 <div className="col-lg-3">
-                  <RightSidebar />
+                  <RightSidebar settings={props.settings} />
                 </div>
               </div>
             </div>

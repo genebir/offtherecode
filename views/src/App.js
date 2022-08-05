@@ -1,29 +1,23 @@
 import { Routes, Route } from "react-router-dom";
-import Companies from "./page/Companies";
-import Companyprofile from "./page/Company-profile";
-import Selfprofile from "./page/Selfprofile";
-import Userprofile from "./page/Userprofile";
-import Profile from "./page/Profile";
 import Message from "./page/Message";
-import About from "./page/About";
-import Jobs from "./page/Jobs";
-import Projects from "./page/Projects";
 import Signin from "./page/Signin";
-import Profilesetting from "./page/Profilesetting";
-import Forum from "./page/Forum";
-import Helpcenter from "./page/Helpcenter";
 import { useContext } from "react";
 import AuthContext from "./store/auth-context";
-import HomeContents from "./page/HomeContents";
+
 import Home from "./page/Home";
 
 const App = () => {
+  let token = localStorage.getItem("token");
   const ctx = useContext(AuthContext);
   return (
     <div>
       <Routes>
-        <Route path="/" element={ctx.isLoggedIn ? <Home /> : <Signin />} />
+        <Route
+          path="/"
+          element={token && token.length > 1 ? <Home /> : <Signin />}
+        />
         <Route path="/signin" element={<Signin />} />
+        <Route path="/chat" element={(props) => <Message {...props} />} />
         {/* <Route path="/about" element={<About />} />
         <Route path="/companies" element={<Companies />} />
         <Route path="/companies/profile" element={<Companyprofile />} />

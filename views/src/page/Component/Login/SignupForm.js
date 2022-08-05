@@ -1,17 +1,16 @@
 import { useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import ErrorModal from "../../Layout/ErrorModal";
+import SignupModal from "../../Layout/Modal/SignupModal";
 
 const SignupForm = (props) => {
   const [checkbox, setCheckbox] = useState(true);
   const [error, setError] = useState(false);
-  const history = useNavigate();
+  const [ValidSignup, setValidSignup] = useState(false);
 
-  const inputEmail = useRef();
-  const inputPassword = useRef();
-  const inputPasswordCheck = useRef();
-  const inputNickname = useRef();
-  const inputPhoneNumber = useRef();
+  let inputEmail = useRef();
+  let inputPassword = useRef();
+  let inputPasswordCheck = useRef();
+  let inputNickname = useRef();
 
   const checkboxHandler = () => {
     // 체크박스 토글기능
@@ -25,38 +24,40 @@ const SignupForm = (props) => {
     return setCheckbox;
   };
 
-  const addSignupHandler = (signupdata) => {
+  const addSignupHandler = async (SignupJsonData) => {
     //데이터 전송 함수
-    fetch("https://react-http-fa2fe-default-rtdb.firebaseio.com/signup.json", {
-      // localhost:3000/
-      method: "POST",
-      body: JSON.stringify(signupdata),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    }).then(() => {
-      history("/", { replace: true });
-    });
+    try {
+      await fetch("http://localhost:8888/otc/mem/join", {
+        // localhost:3000/
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(SignupJsonData),
+      })
+        .then((response) => console.log(response.json()))
+        .then((data) => console.log(data));
+    } catch {
+      setError(true);
+    }
   };
 
   const onSubmitHandler = (event) => {
     //가입 눌렀을때 작용하는 함수
     event.preventDefault();
 
-    const enterEmail = inputEmail.current.value;
+    const enterEmail = inputEmail.current.value.toString();
     const enterPassword = inputPassword.current.value;
-    const enterPasswordCheck = inputPasswordCheck.current.value;
-    const enterNickname = inputNickname.current.value;
-    const enterPhoneNumber = inputPhoneNumber.current.value;
+    const enterPasswordCheck = inputPasswordCheck.current.value.toString();
+    const enterNickname = inputNickname.current.value.toString();
 
     const SignupJsonData = {
-      email: enterEmail,
-      password: enterPassword,
-      nickname: enterNickname,
-      phone: enterPhoneNumber,
+      user_email: enterEmail,
+      user_pw: enterPassword,
+      user_nick: enterNickname,
     };
 
-    console.log(SignupJsonData);
+    // console.log(SignupJsonData);
 
     if (checkbox === false) {
       setError(true);
@@ -67,16 +68,18 @@ const SignupForm = (props) => {
 
     if (
       enterPassword === enterPasswordCheck &&
-      (enterEmail !== "" ||
-        enterPassword !== "" ||
-        enterNickname !== "" ||
-        enterPhoneNumber !== "")
+      (enterEmail !== "" || enterPassword !== "" || enterNickname !== "")
     ) {
       setError(false);
-      addSignupHandler(SignupJsonData);
+      try {
+        addSignupHandler(SignupJsonData);
+        setValidSignup(true);
+      } catch (err) {
+        setError(true);
+        return;
+      }
     } else {
       setError(true);
-      return;
     }
   };
   // 이메일 비밀번호 닉네임 핸드폰 번호
@@ -113,19 +116,7 @@ const SignupForm = (props) => {
                     placeholder="Nickname"
                     ref={inputNickname}
                   />
-                  <i className="la la-globe" />
-                </div>
-              </div>
-              <div className="col-lg-12 no-pdd">
-                <div className="sn-field">
-                  <input
-                    type="text"
-                    name="Phone"
-                    placeholder="Phone Number"
-                    ref={inputPhoneNumber}
-                    maxLength="13"
-                  />
-                  <i className="la la-globe" />
+                  <i className="la la-globe" style={{ float: "right" }} />
                 </div>
               </div>
               <div className="col-lg-12 no-pdd">
@@ -175,13 +166,22 @@ const SignupForm = (props) => {
                 <button type="submit" value="submit">
                   Get Started
                 </button>
-                {error ? <ErrorModal onClose={() => setError(false)} /> : null}
+                {error ? (
+                  <ErrorModal
+                    errorType={"회원가입 오류"}
+                    onClose={() => setError(false)}
+                  />
+                ) : null}
+                {ValidSignup && (
+                  <SignupModal
+                    signin={props.signin}
+                    onClose={() => setValidSignup(false)}
+                  />
+                )}
               </div>
             </div>
           </form>
         </div>
-        {/*dff-tab end*/}
-
         {/*dff-tab end*/}
       </div>
     </div>
